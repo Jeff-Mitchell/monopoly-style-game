@@ -11,6 +11,7 @@ public class MonopolyBoard {
 		
 		ArrayList<Square> board = new ArrayList<>(12); 
 		
+		// Instantiates the first player
 		Player player1 = new Player(); 
 		
 		for(int loop = 0; loop<19; loop++) {
