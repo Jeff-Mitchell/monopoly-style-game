@@ -1,4 +1,4 @@
-package softwareEngineering;
+package artemisLite;
 
 import java.util.Random;
 
