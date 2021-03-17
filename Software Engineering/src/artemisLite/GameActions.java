@@ -11,8 +11,6 @@ import java.util.Scanner;
  * @author stu_m
  *
  */
-
-// A utility class which sets the number and names of players and allows for player movement
 public class GameActions {
 
 	public static ArrayList<Player> setPlayers(Scanner scan) {
