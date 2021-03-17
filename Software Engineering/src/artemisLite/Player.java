@@ -5,6 +5,7 @@ package artemisLite;
 
 /**
  * @author stu_m
+ * @author Jeff Mitchell
  *
  */
 public class Player {
@@ -80,7 +81,17 @@ public class Player {
 	 */
 	public void setBankrupt(boolean bankrupt) {
 		this.bankrupt = bankrupt;
-	} 
+	}
+
+	/**
+	 * to string method which prints player stats
+	 */
+	public String toString() {
+		return "Player [playerName=" + playerName + ", position=" + position
+				+ ", balance=" + balance + ", bankrupt=" + bankrupt + "]";
+	}
+	
+	
 	
 	
 	

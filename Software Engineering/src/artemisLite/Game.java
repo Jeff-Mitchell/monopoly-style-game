@@ -22,6 +22,11 @@ public class Game {
 		//roll 
 		
 		// game conditions 
+		
+		
+		
+		//print player stats
+		System.out.println(players.toString());
 
 
 
