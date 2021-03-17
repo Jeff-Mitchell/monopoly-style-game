@@ -25,10 +25,13 @@ public class Game {
 		
 		
 		
-		//print player stats
-		System.out.println(players.toString());
+		//print each player 1s stats
+		System.out.println(players.get(0).toString());
 
-
+	
+		//scanner to ask look at next player stats?
+		// create loop to continue printing all players that exists stats.
+		System.out.println("Continue to next players stats?");
 
 	}
 }

@@ -87,8 +87,12 @@ public class Player {
 	 * to string method which prints player stats
 	 */
 	public String toString() {
-		return "Player [playerName=" + playerName + ", position=" + position
-				+ ", balance=" + balance + ", bankrupt=" + bankrupt + "]";
+		return "|--------------------------------"
+				+ "\n|Player Name        = " + playerName + ""
+				+ "\n|Player Position    = " + position + ""
+				+ "\n|Player Balance     = " + balance + ""
+				+ "\n|Bankrupt?          = " + bankrupt +""
+				+ "\n|--------------------------------";
 	}
 	
 	
