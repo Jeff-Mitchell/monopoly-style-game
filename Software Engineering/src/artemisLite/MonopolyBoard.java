@@ -17,6 +17,8 @@ public class MonopolyBoard {
 		for(int loop = 0; loop<19; loop++) {
 		player1.setPosition(GameActions.rollDice());
 		System.out.println(player1.getPosition());
+		
+		
 		}
 
 	}
