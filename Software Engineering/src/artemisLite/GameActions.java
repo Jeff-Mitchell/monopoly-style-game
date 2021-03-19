@@ -8,43 +8,72 @@ import java.util.Random;
 import java.util.Scanner;
 
 /**
- * @author stu_m
+ * @author Stuart McCann, Jason McKillen
  *
  */
 public class GameActions {
-
-	public static ArrayList<Player> setPlayers(Scanner scan) {
-
-		ArrayList<Player> players = new ArrayList<>();
-		int numPlayers;
-		System.out.println("Welcome to Artemis Lite - Please enter the number of players between 2 and 4");
-
-		do {
-			numPlayers = scan.nextInt();
-			if (numPlayers < 2 || numPlayers > 4) {
-				System.out.println("Invalid number of players - please enter a number between 2 and 4!");
-			} else {
-				for (int loop = 1; loop <= numPlayers; loop++) {
-					System.out.println("Please enter player " + loop + "'s name");
-					String playerName = scan.next();
-
-					Player player = new Player(playerName);
-					players.add(player);
-					System.out.println("Player added");
-
-				}
-			}
-		} while (numPlayers < 2 || numPlayers > 4);
-
-		return players;
-
+	static Scanner scanner = new Scanner(System.in);
+	// Prompts the user to enter the number of players
+	public static void setNumberOfPlayers() {
+		
+		// Requires the user to enter an integer value of the number of players
+		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
+		int numberOfPlayers = scanner.nextInt();
+		
+		// Checks if the number of players is invalid and prompts the user to enter a valid number.
+		// JASON: I'd like to add an escape function here, where the player can enter a number to quit the game.
+		while(numberOfPlayers < 2 || numberOfPlayers > 4) {
+			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			numberOfPlayers = scanner.nextInt();
+			
+		}
+		
+		// Loops through each player and prompts them to enter their name.
+		for (int loop = 0; loop < numberOfPlayers; loop++) {
+			System.out.println("Please enter player " + (loop + 1) + "'s name");
+				
+			String playerName = scanner.next();
+				
+			// Creates a new instance of the Player class and adds it to the Players ArrayList
+			Player player = new Player(playerName);
+			Game.players.add(player);
+			System.out.println(playerName + " added successfully.");
+		}
 	}
 
+	// Allows the player to roll a dice to determine the number of squares to move.
 	public static int rollDice() {
+		
+		//Prompts the user to roll the dice.
+		System.out.println("Are you ready to roll the dice? Y/N");
+		String userInput = scanner.next();
+		
+		// Ensures that the user is ready to roll the dice.
+		while(!userInput.equalsIgnoreCase("Y")) {
+			System.out.println("Enter Y when you are ready to roll the dice.");
+			userInput = scanner.next();
+		}
 
-		Random rand = new Random();
-
-		return rand.nextInt(12) + 1;
+		Random random = new Random();
+		
+		// Adds one to the dice value in order to avoid returning a value of 0.
+		int diceValue = random.nextInt(12) + 1;
+		
+		// Tells the user what value they rolled.
+		System.out.println("You rolled a " + diceValue);
+		
+		return diceValue;
 	}
+	
+	public static void showAllPlayerStats() {
+		System.out.println("Would you like to see the attributes of all players? (Y/N)");
+		String isWantingStats = scanner.next();
 
+		if(isWantingStats.equalsIgnoreCase("Y")) {
+			for (Player player:Game.players) {
+				player.printAll();
+			}
+		}
+		
+	}
 }

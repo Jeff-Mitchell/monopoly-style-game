@@ -86,13 +86,13 @@ public class Player {
 	/**
 	 * to string method which prints player stats
 	 */
-	public String toString() {
-		return "|--------------------------------"
-				+ "\n|Player Name        = " + playerName + ""
-				+ "\n|Player Position    = " + position + ""
-				+ "\n|Player Balance     = " + balance + ""
-				+ "\n|Bankrupt?          = " + bankrupt +""
-				+ "\n|--------------------------------";
+	public void printAll() {
+		System.out.println( "|--------------------------------"
+				+ "\n|Player Name        = " + this.playerName + ""
+				+ "\n|Player Position    = " + this.position + ""
+				+ "\n|Player Balance     = " + this.balance + ""
+				+ "\n|Bankrupt?          = " + this.bankrupt +""
+				+ "\n|--------------------------------");
 	}
 	
 	
