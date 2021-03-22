@@ -87,7 +87,7 @@ public class Player {
 	 * to string method which prints player stats
 	 */
 	public void printAll() {
-		System.out.println( "|--------------------------------"
+		System.out.println( "\n|--------------------------------"
 				+ "\n|Player Name        = " + this.playerName + ""
 				+ "\n|Player Position    = " + this.position + ""
 				+ "\n|Player Balance     = " + this.balance + ""

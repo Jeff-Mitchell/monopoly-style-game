@@ -29,6 +29,9 @@ public class Game {
 		GameActions.setNumberOfPlayers();
 		GameActions.showAllPlayerStats();
 		
+		//JEFF: Added beginnings of show rules code.
+		GameActions.showRules();
+		
 		
 		
 		//roll 
