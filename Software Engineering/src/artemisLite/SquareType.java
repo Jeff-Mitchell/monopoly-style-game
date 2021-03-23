@@ -10,3 +10,6 @@ package artemisLite;
 public enum SquareType {
 	GO, CHANCE, SYSTEM;
 }
+
+
+//md test
