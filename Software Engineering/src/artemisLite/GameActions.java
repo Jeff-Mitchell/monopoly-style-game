@@ -91,4 +91,16 @@ public class GameActions {
 					+ "\n|--------------------------------");
 		}
 	}
+	
+	/**
+	 * When the player selects Quit game gameOver is set to false and final game stats are displayed
+	 */
+	public static void quitGame() {
+		
+		Game.gameOver = true; 
+		System.out.println("Thank you for playing Artemis Lite");
+		System.out.println("Your final progress: ");
+		//showGameProgress()
+		
+	}
 }

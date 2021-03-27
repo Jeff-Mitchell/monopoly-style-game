@@ -4,7 +4,7 @@
 package artemisLite;
 
 /**
- * @author stu_m
+ * @author Stuart McCann
  * @author Jeff Mitchell
  *
  */
@@ -56,7 +56,7 @@ public class Player {
 	 */
 	public void setPosition(int position) {
 				
-		this.position = (this.position+position)%12; ;
+		this.position = (this.position+position)%Board.NUM_SQUARES; ;
 	}
 	/**
 	 * @return the balance
