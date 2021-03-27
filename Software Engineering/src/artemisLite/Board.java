@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class Board {
 
-	private static final int NUM_SQUARES = 12;
+	protected static final int NUM_SQUARES = 12;
 
 	/**
 	 * Returns an arraylist populated with the elements for the board
