@@ -34,8 +34,12 @@ public class Game {
 		//JEFF: Added beginnings of show rules code.
 		GameActions.showRules();
 		
-		
-		
+		//Stuart: game in do while loop with condition gameOver = true
+		//any methods that cause game to end i.e bankrupt / quit will set gameOver = false
+		do {
+			
+		//Stuart: For loop through an arrayList of players?
+			
 		//roll 
 		GameActions.rollDice();
 		
@@ -51,6 +55,10 @@ public class Game {
 		//scanner to ask look at next player stats?
 		// create loop to continue printing all players that exists stats.
 		// System.out.println("Continue to next players stats?");
+		
+		}while(gameOver); 
+		
+		// game now over 
 
 	}
 }

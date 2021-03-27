@@ -12,7 +12,7 @@ import java.util.Scanner;
  *
  */
 public class GameActions {
-	static Scanner scanner = new Scanner(System.in);
+	protected static Scanner scanner = new Scanner(System.in);
 
 	// Prompts the user to enter the number of players
 	public static void setNumberOfPlayers() {
@@ -97,10 +97,16 @@ public class GameActions {
 	 */
 	public static void quitGame() {
 		
+		System.out.println("Are you sure you want to quit? Enter Y OR N");
+		String  wantsToQuit = scanner.next(); 
+		if(wantsToQuit.equalsIgnoreCase("Y")) {
 		Game.gameOver = true; 
 		System.out.println("Thank you for playing Artemis Lite");
 		System.out.println("Your final progress: ");
 		//showGameProgress()
+		}else if(wantsToQuit.equalsIgnoreCase("N")) {
+			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
+		}
 		
 	}
 }
