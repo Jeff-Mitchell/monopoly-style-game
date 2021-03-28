@@ -12,9 +12,11 @@ import java.util.Scanner;
  *
  */
 public class GameActions {
-	static Scanner scanner = new Scanner(System.in);
+	protected static Scanner scanner = new Scanner(System.in);
 
-	// Prompts the user to enter the number of players
+	/**
+	 * Prompts the user to enter the number of players
+	 */
 	public static void setNumberOfPlayers() {
 
 		// Requires the user to enter an integer value of the number of players
@@ -29,6 +31,10 @@ public class GameActions {
 			System.out
 					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
+			// Stuart: added if statement for escape function to call quit game method
+			if (numberOfPlayers == 0) {
+				GameActions.quitGame();
+			}
 
 		}
 
@@ -46,11 +52,14 @@ public class GameActions {
 		}
 	}
 
-	// Allows the player to roll a dice to determine the number of squares to move.
-	public static int rollDice() {
+	/**
+	 * 
+	 * @return
+	 */
+	public static int rollDice(Player player) {
 
 		// Prompts the user to roll the dice.
-		System.out.println("Are you ready to roll the dice? Y/N");
+		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
 		String userInput = scanner.next();
 
 		// Ensures that the user is ready to roll the dice.
@@ -70,6 +79,9 @@ public class GameActions {
 		return diceValue;
 	}
 
+	/**
+	 * 
+	 */
 	public static void showAllPlayerStats() {
 		System.out.println("Would you like to see the attributes of all players? (Y/N)");
 		String isWantingStats = scanner.next();
@@ -82,6 +94,9 @@ public class GameActions {
 
 	}
 
+	/**
+	 * 
+	 */
 	public static void showRules() {
 		System.out.println("Would you like to read the rules of the game? (Y/N)");
 		String wantsRules = scanner.next();
@@ -91,16 +106,63 @@ public class GameActions {
 					+ "\n|--------------------------------");
 		}
 	}
-	
+
 	/**
-	 * When the player selects Quit game gameOver is set to false and final game stats are displayed
+	 * When the player selects Quit game gameOver is set to false and final game
+	 * stats are displayed
 	 */
 	public static void quitGame() {
+
+		System.out.println("Are you sure you want to quit? Enter Y OR N");
+		String wantsToQuit = scanner.next();
+		if (wantsToQuit.equalsIgnoreCase("Y")) {
+			Game.gameOver = true;
+			System.out.println("Thank you for playing Artemis Lite");
+			System.out.println("Your final progress: ");
+			// showGameProgress()
+		} else if (wantsToQuit.equalsIgnoreCase("N")) {
+			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
+		}
+
+	}
+	
+	/**
+	 * 
+	 * @param player
+	 */
+	public static void landOnSquare(Player player) {
+
+		int squareNumber = player.getPosition();
+		Square square = Game.board.get(squareNumber);
+		SquareType squareType = square.getSquareType();
+
+		if (player.isPassGo()) {
+			passGo(player);
+		}
+
+		System.out.println("You have landed on square " + player.getPosition());
+		if (square instanceof Element) {
+			// check ownership /rent
+		} else if (square instanceof Chance) {
+			// chance method
+		} else {
+			// go method
+		}
+		System.out.println("This this square is " + squareType);
+
+		// display options method
+
+	}
+
+	/**
+	 * 
+	 * @param player
+	 */
+	public static void passGo(Player player) {
 		
-		Game.gameOver = true; 
-		System.out.println("Thank you for playing Artemis Lite");
-		System.out.println("Your final progress: ");
-		//showGameProgress()
-		
+		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
+		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
+		player.setPassGo(false);
+
 	}
 }

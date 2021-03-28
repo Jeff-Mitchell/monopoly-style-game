@@ -8,7 +8,7 @@ package artemisLite;
  *
  */
 public enum SquareType {
-	GO, CHANCE, SYSTEM;
+	GO, CHANCE, SYSTEM, KENNEDY_SPACE_CENTRE;
 }
 
 
