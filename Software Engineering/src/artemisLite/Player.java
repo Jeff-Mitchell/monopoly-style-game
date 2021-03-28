@@ -61,7 +61,7 @@ public class Player {
 	 */
 	public void setPosition(int position) {
 		if(this.position+position > Board.NUM_SQUARES) {
-			this.setPassGo(true);; 
+			this.setPassGo(true);
 		}
 		this.position = (this.position + position) % Board.NUM_SQUARES;
 		
