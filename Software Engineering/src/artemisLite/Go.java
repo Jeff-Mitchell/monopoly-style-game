@@ -11,7 +11,7 @@ package artemisLite;
  */
 public class Go extends Square {
 	
-	private static final int GO_FUNDING = 200;  
+	protected static final int GO_FUNDING = 200;  
 	
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class Go extends Square {
 	}
 	
 	public Go(int squareNumber) {
-		super(SquareType.GO, squareNumber); 
+		super(SquareType.KENNEDY_SPACE_CENTRE, squareNumber); 
 	}
 	
 	public void addFunding(Player player) {
