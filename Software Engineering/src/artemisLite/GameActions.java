@@ -175,8 +175,8 @@ public class GameActions {
 		if (element.getOwner() == null) {
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
 					+ "- would you like to buy it?");
-			String wantsToBuy = scanner.next();
-			if (wantsToBuy.equalsIgnoreCase("Y")) {
+			boolean wantsToBuy = getUserInput();
+			if (wantsToBuy == true) {
 				// buy element method
 				buyElement(player, element);
 			} else {
@@ -190,6 +190,8 @@ public class GameActions {
 		} else {
 			System.out.println(element.getOwner().getPlayerName() + " owns this square");
 			System.out.println("The rent for this square is: " + element.getRent());
+			player.chargeRent();
+			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 			// ask player if he wishes to charge rent
 			// if does player.setBalance(-element.getRent())
 			// if doesnt output thanks and move on
@@ -255,14 +257,14 @@ public class GameActions {
 
 		System.out.println("This element costs " + element.getRent());
 		System.out.println("Are you sure you want to buy the element? Y/N");
-		String wantsToBuy = scanner.next();
-		if (wantsToBuy.equalsIgnoreCase("Y")) {
+		boolean wantsToBuy = getUserInput();
+		if (wantsToBuy == true) {
 			element.setOwner(player);
 			player.setBalance(-element.getRent());
 			System.out.println("Congratulations! You now own " + element.getElementName() + " part of the "
 					+ element.getElementType() + " system");
 			System.out.println("Your balance in now: " + player.getBalance());
-		} else if (wantsToBuy.equalsIgnoreCase("N")) {
+		} else if (wantsToBuy == false) {
 			// offer to group method
 		}
 
@@ -292,6 +294,7 @@ public class GameActions {
 	}
 	
 	// Handles user input
+	// JASON: Write JavaDoc
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
 		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
@@ -304,5 +307,7 @@ public class GameActions {
 		}
 		return false;
 	}
+	
+	
 
 }
