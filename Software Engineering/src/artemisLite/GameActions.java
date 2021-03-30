@@ -7,12 +7,15 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+import org.w3c.dom.html.HTMLButtonElement;
+
 /**
  * @author Stuart McCann, Jason McKillen
  *
  */
 public class GameActions {
 	protected static Scanner scanner = new Scanner(System.in);
+	static Random random = new Random();
 
 	/**
 	 * Prompts the user to enter the number of players
@@ -61,6 +64,11 @@ public class GameActions {
 		// Prompts the user to roll the dice.
 		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
 		String userInput = scanner.next();
+
+		if (userInput.equalsIgnoreCase("N")) {
+			System.out.println("Would you like to quit the game? Y/N");
+
+		}
 
 		// Ensures that the user is ready to roll the dice.
 		while (!userInput.equalsIgnoreCase("Y")) {
@@ -125,7 +133,7 @@ public class GameActions {
 		}
 
 	}
-	
+
 	/**
 	 * 
 	 * @param player
@@ -142,13 +150,14 @@ public class GameActions {
 
 		System.out.println("You have landed on square " + player.getPosition());
 		if (square instanceof Element) {
-			// check ownership /rent
+			Element element = (Element) square;
+			checkElement(player, element);
 		} else if (square instanceof Chance) {
 			// chance method
+			chanceSquare(player);
 		} else {
 			// go method
 		}
-		System.out.println("This this square is " + squareType);
 
 		// display options method
 
@@ -157,12 +166,128 @@ public class GameActions {
 	/**
 	 * 
 	 * @param player
+	 * @param element
+	 */
+	public static void checkElement(Player player, Element element) {
+
+		System.out.println("You have landed on " + element.getElementName());
+		System.out.println("This is part of the " + element.getElementType() + " system");
+		if (element.getOwner() == null) {
+			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
+					+ "- would you like to buy it?");
+			String wantsToBuy = scanner.next();
+			if (wantsToBuy.equalsIgnoreCase("Y")) {
+				// buy element method
+				buyElement(player, element);
+			} else {
+				// offer to the rest of players
+				offerElementToAll(player, element);
+			}
+
+		} else if (element.getOwner() == player) {
+			System.out.println("You already own this element - would you like to buy a development?");
+			// buy development method
+		} else {
+			System.out.println(element.getOwner().getPlayerName() + " owns this square");
+			System.out.println("The rent for this square is: " + element.getRent());
+			// ask player if he wishes to charge rent
+			// if does player.setBalance(-element.getRent())
+			// if doesnt output thanks and move on
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param player
 	 */
 	public static void passGo(Player player) {
-		
+
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
+		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
 	}
+
+	/**
+	 * 
+	 * @param player
+	 */
+	public static void chanceSquare(Player player) {
+		System.out.println("You have recieved a NASA Marshall's update!");
+		int randomNum = random.nextInt(6);
+
+		switch (randomNum) {
+		// Stuart : need to add messages and player.setbalance +- amount
+		case 0:
+			System.out.println("Message " + randomNum);
+			break;
+		case 1:
+			System.out.println("Message " + randomNum);
+			break;
+		case 2:
+			System.out.println("Message " + randomNum);
+			break;
+		case 3:
+			System.out.println("Message " + randomNum);
+			break;
+		case 4:
+			System.out.println("Message " + randomNum);
+			break;
+		case 5:
+			System.out.println("Message " + randomNum);
+			break;
+		default:
+			;
+
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param player
+	 * @param element
+	 */
+	public static void buyElement(Player player, Element element) {
+
+		System.out.println("This element costs " + element.getRent());
+		System.out.println("Are you sure you want to buy the element? Y/N");
+		String wantsToBuy = scanner.next();
+		if (wantsToBuy.equalsIgnoreCase("Y")) {
+			element.setOwner(player);
+			player.setBalance(-element.getRent());
+			System.out.println("Congratulations! You now own " + element.getElementName() + " part of the "
+					+ element.getElementType() + " system");
+			System.out.println("Your balance in now: " + player.getBalance());
+		} else if (wantsToBuy.equalsIgnoreCase("N")) {
+			// offer to group method
+		}
+
+	}
+
+	/**
+	 * 
+	 * @param playerOffered
+	 * @param element
+	 */
+	public static void offerElementToAll(Player player, Element element) {
+		boolean elementPurchased = false;
+		for (Player playerOffered : Game.players) {
+			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
+				System.out.println(playerOffered.getPlayerName() + " would you like to buy " + element.getElementName() + "?");
+				String wantsToBuy = scanner.next();
+				if (wantsToBuy.equalsIgnoreCase("Y")) {
+					buyElement(playerOffered, element);
+					elementPurchased = true;
+				}
+			}
+		}
+		if (!elementPurchased) {
+			System.out.println("No one decided to buy " + element.getElementName());
+		}
+
+	}
+
 }
