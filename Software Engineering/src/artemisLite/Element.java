@@ -11,23 +11,24 @@ package artemisLite;
  */
 public class Element extends Square {
 	
+	// Sets instance variables
 	private ElementName elementName; 
 	private ElementType elementType; 
 	private Player owner; 
-	private int numMinorDevelopments; 
+	private boolean minorDevelopment;
 	private boolean majorDevelopment; 
 	private int rent;
 	
 	/**
 	 * 
-	 * Default
+	 * Default constructor for the element class
 	 */
 	public Element() {
 		
 	}
 	
 	/**
-	 * 
+	 * Constructor with args for the element class
 	 * @param squareNumber
 	 * @param elementName
 	 * @param elementType
@@ -54,41 +55,47 @@ public class Element extends Square {
 		this.elementName = elementName;
 	}
 	/**
+	 * Gets the type of the element
 	 * @return the elementType
 	 */
 	public ElementType getElementType() {
 		return elementType;
 	}
 	/**
+	 * Sets the type of the element
 	 * @param elementType the elementType to set
 	 */
 	public void setElementType(ElementType elementType) {
 		this.elementType = elementType;
 	}
 	/**
-	 * @return the owner
+	 * Gets the owner of the element
+	 * @return the owner of the element
 	 */
 	public Player getOwner() {
 		return owner;
 	}
 	/**
-	 * @param owner the owner to set
+	 * Sets the owner of the element
+	 * @param owner the owner of the element
 	 */
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
+	
 	/**
-	 * @return the numMinorDevelopments
+	 * @return the majorDevelopment
 	 */
-	public int getNumMinorDevelopments() {
-		return numMinorDevelopments;
+	public boolean isMinorDevelopment() {
+		return minorDevelopment;
 	}
 	/**
-	 * @param numMinorDevelopments the numMinorDevelopments to set
+	 * @param minorDevelopment the minorDevelopment to set
 	 */
-	public void setNumMinorDevelopments(int numMinorDevelopments) {
-		this.numMinorDevelopments = numMinorDevelopments;
+	public void setMinorDevelopment(boolean minorDevelopment) {
+		this.minorDevelopment = minorDevelopment;
 	}
+
 	/**
 	 * @return the majorDevelopment
 	 */

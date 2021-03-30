@@ -19,15 +19,10 @@ public class Game {
 
 	protected static ArrayList<Player> players = new ArrayList<Player>();
 	protected static ArrayList<Square> board = Board.createBoard();
-	// Instantiates the scanner class to allow user input.
-	Scanner scanner = new Scanner(System.in);
 
 	public static void main(String[] args) {
 
 		System.out.println("Welcome to Artemis Lite");
-
-		// JASON: I'd like to add a "Show rules" method here, which would ask the user
-		// if they want to see the rules of the game.
 
 		GameActions.setNumberOfPlayers();
 		GameActions.showAllPlayerStats();
@@ -43,21 +38,17 @@ public class Game {
 			// Stuart: For loop through an arrayList of players?
 			for (Player player : players) {
 
-				// roll
+				// Rolls the dice
 				int playerRoll = GameActions.rollDice(player);
-
+				
+				// Moves the player to their new position from the dice roll
 				player.setPosition(playerRoll);
 
+				// Shows the player information about their new position and their available choices
 				GameActions.landOnSquare(player);
-
-				// game conditions
-
-				// print each player 1s stats
-				// System.out.println(players.get(0).toString());
-
-				// scanner to ask look at next player stats?
-				// create loop to continue printing all players that exists stats.
-				// System.out.println("Continue to next players stats?");
+				
+				// Checks if the conditions necessary to win the game have been met
+				GameActions.checkWinConditions();
 			}
 
 		} while (!gameOver);

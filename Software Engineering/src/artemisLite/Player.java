@@ -131,4 +131,7 @@ public class Player {
 				+ "\n|Bankrupt?          = " + this.bankrupt + "" + "\n|--------------------------------");
 	}
 
+	public void chargeRent(int rent) {
+		this.balance -= rent;
+	}
 }
