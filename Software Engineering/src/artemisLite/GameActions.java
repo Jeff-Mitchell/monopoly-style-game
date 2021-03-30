@@ -173,6 +173,7 @@ public class GameActions {
 		System.out.println("You have landed on " + element.getElementName());
 		System.out.println("This is part of the " + element.getElementType() + " system");
 		if (element.getOwner() == null) {
+			
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
 					+ "- would you like to buy it?");
 			String wantsToBuy = scanner.next();
