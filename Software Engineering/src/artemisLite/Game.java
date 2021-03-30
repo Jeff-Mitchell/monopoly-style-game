@@ -49,6 +49,8 @@ public class Game {
 				player.setPosition(playerRoll);
 
 				GameActions.landOnSquare(player);
+				
+				
 
 				// game conditions
 
