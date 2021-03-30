@@ -111,8 +111,16 @@ public class GameActions {
 		String wantsRules = scanner.next();
 
 		if (wantsRules.equalsIgnoreCase("Y")) {
-			System.out.println("\n|--------------------------------" + "\n|**TYPE UP RULES LATER**"
-					+ "\n|--------------------------------");
+			System.out.println("WELCOME TO ARTEMIS LIGHT");
+			System.out.println("Work Together To Realise The Ultimate Goal Of Landing On The Moon");
+			System.out.println("Game Rules:");
+			System.out.println("Game For 2-4 Players");
+			System.out.println("Roll Dice To Traverse The Board And Acquire Systems");
+			System.out.println("Option To Offer Systems To Other Players To Achieve Ultimate Goal");
+			System.out.println("If All Systems Are Developed Then Blast Off To The Moon");
+			System.out.println("Game Ends If Any Player Quits Or Runs Out Of Resources");
+			System.out.println("Suit UP!"); // MARK: this could include an option to start game
+
 		}
 	}
 
@@ -206,7 +214,7 @@ public class GameActions {
 
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
-		player.setBalance(Go.GO_FUNDING); 
+		player.setBalance(Go.GO_FUNDING);
 		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
@@ -278,7 +286,8 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(playerOffered.getPlayerName() + " would you like to buy " + element.getElementName() + "?");
+				System.out.println(
+						playerOffered.getPlayerName() + " would you like to buy " + element.getElementName() + "?");
 				String wantsToBuy = scanner.next();
 				if (wantsToBuy.equalsIgnoreCase("Y")) {
 					buyElement(playerOffered, element);
