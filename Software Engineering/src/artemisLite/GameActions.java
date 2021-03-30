@@ -36,6 +36,7 @@ public class GameActions {
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
+				// Jason test comment
 				GameActions.quitGame();
 			}
 
