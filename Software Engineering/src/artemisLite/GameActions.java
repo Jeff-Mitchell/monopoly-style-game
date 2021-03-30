@@ -7,10 +7,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-import org.w3c.dom.html.HTMLButtonElement;
 
 /**
  * @author Stuart McCann, Jason McKillen
+ * TODO: Write game rules
+ * TODO: JavaDoc methods and variables
+ * TODO: Add the buy development class (separated into major and minor developments)
+ * TODO: Implement the game winning conditions into the code
  *
  */
 public class GameActions {
@@ -26,13 +29,9 @@ public class GameActions {
 		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
 		int numberOfPlayers = scanner.nextInt();
 
-		// Checks if the number of players is invalid and prompts the user to enter a
-		// valid number.
-		// JASON: I'd like to add an escape function here, where the player can enter a
-		// number to quit the game.
+		// Checks if the number of players is invalid and prompts the user to enter a valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out
-					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
@@ -92,9 +91,9 @@ public class GameActions {
 	 */
 	public static void showAllPlayerStats() {
 		System.out.println("Would you like to see the attributes of all players? (Y/N)");
-		String isWantingStats = scanner.next();
+		boolean isWantingStats = getUserInput();
 
-		if (isWantingStats.equalsIgnoreCase("Y")) {
+		if (isWantingStats == true) {
 			for (Player player : Game.players) {
 				player.printAll();
 			}
@@ -122,16 +121,15 @@ public class GameActions {
 	public static void quitGame() {
 
 		System.out.println("Are you sure you want to quit? Enter Y OR N");
-		String wantsToQuit = scanner.next();
-		if (wantsToQuit.equalsIgnoreCase("Y")) {
+		boolean wantsToQuit = getUserInput();
+		if (wantsToQuit == true) {
 			Game.gameOver = true;
 			System.out.println("Thank you for playing Artemis Lite");
 			System.out.println("Your final progress: ");
 			// showGameProgress()
-		} else if (wantsToQuit.equalsIgnoreCase("N")) {
+		} else if (wantsToQuit == false) {
 			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
-		}
-
+		} 
 	}
 
 	/**
@@ -142,6 +140,8 @@ public class GameActions {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
+		
+		// JASON: This appears to be unused but I don't know what the craic is with it. Should it be kept?
 		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
@@ -190,7 +190,8 @@ public class GameActions {
 		} else {
 			System.out.println(element.getOwner().getPlayerName() + " owns this square");
 			System.out.println("The rent for this square is: " + element.getRent());
-			player.chargeRent();
+			// Calls the charge rent method
+			player.chargeRent(element.getRent());
 			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 			// ask player if he wishes to charge rent
 			// if does player.setBalance(-element.getRent())
@@ -279,7 +280,7 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(playerOffered.getPlayerName() + " would you like to buy " + element.getElementName() + "?");
+				System.out.println(playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
 				String wantsToBuy = scanner.next();
 				if (wantsToBuy.equalsIgnoreCase("Y")) {
 					buyElement(playerOffered, element);
@@ -288,13 +289,13 @@ public class GameActions {
 			}
 		}
 		if (!elementPurchased) {
-			System.out.println("No one decided to buy " + element.getElementName());
+			System.out.println("No one decided to buy " + element.getElementName() + ".");
 		}
 
 	}
 	
-	// Handles user input
-	// JASON: Write JavaDoc
+	// Handles various user inputs and returns a boolean value 
+	// TODO: Jason - Write JavaDoc
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
 		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
@@ -308,6 +309,21 @@ public class GameActions {
 		return false;
 	}
 	
+	// Checks if the winning conditions have been met
+	public static void checkWinConditions() {
+		boolean allElementsDeveloped = false;
+		// TODO: Loop through all the squares in the board and see if they have been developed.
+		if(allElementsDeveloped == true) {
+			winGame();
+		}
+	}
+	
+	// Prints the "Win Game" message and ends the game.
+	public static void winGame() {
+		// TODO: Write a better "Win Game" message.
+		System.out.println("Congratulations team, you have successfully launched!");
+		Game.gameOver = true;
+	}
 	
 
 }
