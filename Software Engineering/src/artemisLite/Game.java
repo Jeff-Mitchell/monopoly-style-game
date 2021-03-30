@@ -23,17 +23,19 @@ public class Game {
 	public static void main(String[] args) {
 
 		System.out.println("Welcome to Artemis Lite");
-
+		
 		GameActions.setNumberOfPlayers();
-		GameActions.showAllPlayerStats();
-
-		// JEFF: Added beginnings of show rules code.
-		GameActions.showRules();
+		
+		
 
 		// Stuart: game in do while loop with condition gameOver = true
 		// any methods that cause game to end i.e bankrupt / quit will set gameOver =
 		// false
-		do {
+		while (!gameOver) {
+			
+			GameActions.showAllPlayerStats();
+			// JEFF: Added beginnings of show rules code.
+			GameActions.showRules();
 
 			// Stuart: For loop through an arrayList of players?
 			for (Player player : players) {
@@ -51,7 +53,7 @@ public class Game {
 				GameActions.checkWinConditions();
 			}
 
-		} while (!gameOver);
+		} 
 
 		// game now over
 

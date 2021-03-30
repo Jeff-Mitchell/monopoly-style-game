@@ -36,6 +36,7 @@ public class GameActions {
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
 				GameActions.quitGame();
+				break; 
 			}
 
 		}
@@ -62,23 +63,26 @@ public class GameActions {
 
 		// Prompts the user to roll the dice.
 		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
-		String userInput = scanner.next();
+		boolean userInput = getUserInput();
 
-		if (userInput.equalsIgnoreCase("N")) {
+		if (!userInput) {
 			System.out.println("Would you like to quit the game? Y/N");
-
+			userInput = getUserInput(); 
+			if(userInput) {
+				quitGame();
+			}
 		}
 
 		// Ensures that the user is ready to roll the dice.
-		while (!userInput.equalsIgnoreCase("Y")) {
+		while (!userInput) {
 			System.out.println("Enter Y when you are ready to roll the dice.");
-			userInput = scanner.next();
+			userInput = getUserInput();
 		}
 
 		Random random = new Random();
 
 		// Adds one to the dice value in order to avoid returning a value of 0.
-		int diceValue = random.nextInt(12) + 1;
+		int diceValue = random.nextInt(11) + 2;
 
 		// Tells the user what value they rolled.
 		System.out.println("You rolled a " + diceValue);
@@ -143,7 +147,7 @@ public class GameActions {
 		
 		// JASON: This appears to be unused but I don't know what the craic is with it. Should it be kept?
 		SquareType squareType = square.getSquareType();
-
+		//Stuart: this can also be put in player.setPosition()
 		if (player.isPassGo()) {
 			passGo(player);
 		}
@@ -268,6 +272,7 @@ public class GameActions {
 			System.out.println("Your balance in now: " + player.getBalance());
 		} else if (wantsToBuy == false) {
 			// offer to group method
+			offerElementToAll(player, element);
 		}
 
 	}
