@@ -36,7 +36,6 @@ public class GameActions {
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
-				// Jason test comment
 				GameActions.quitGame();
 			}
 
@@ -290,6 +289,20 @@ public class GameActions {
 			System.out.println("No one decided to buy " + element.getElementName());
 		}
 
+	}
+	
+	// Handles user input
+	public static boolean getUserInput() {
+		String userInput = scanner.next();
+		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
+			return true;
+		} else if (userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("No")) {
+			return false;
+		} else {
+			System.out.println("Unrecognised input.");
+			getUserInput();
+		}
+		return false;
 	}
 
 }
