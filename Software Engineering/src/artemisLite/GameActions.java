@@ -205,6 +205,7 @@ public class GameActions {
 
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
+		player.setBalance(Go.GO_FUNDING); 
 		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
@@ -269,7 +270,7 @@ public class GameActions {
 
 	/**
 	 * 
-	 * @param playerOffered
+	 * @param player
 	 * @param element
 	 */
 	public static void offerElementToAll(Player player, Element element) {
