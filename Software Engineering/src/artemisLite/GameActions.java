@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
 /**
- * @author Stuart McCann, Jason McKillen
- * TODO: Write game rules
- * TODO: JavaDoc methods and variables
- * TODO: Add the buy development class (separated into major and minor developments)
- * TODO: Implement the game winning conditions into the code
+ * @author Stuart McCann, Jason McKillen TODO: Write game rules TODO: JavaDoc
+ *         methods and variables TODO: Add the buy development class (separated
+ *         into major and minor developments) TODO: Implement the game winning
+ *         conditions into the code
  *
  */
 public class GameActions {
@@ -29,9 +27,11 @@ public class GameActions {
 		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
 		int numberOfPlayers = scanner.nextInt();
 
-		// Checks if the number of players is invalid and prompts the user to enter a valid number.
+		// Checks if the number of players is invalid and prompts the user to enter a
+		// valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out
+					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
@@ -109,8 +109,15 @@ public class GameActions {
 		String wantsRules = scanner.next();
 
 		if (wantsRules.equalsIgnoreCase("Y")) {
-			System.out.println("\n|--------------------------------" + "\n|**TYPE UP RULES LATER**"
-					+ "\n|--------------------------------");
+			System.out.println("WELCOME TO ARTEMIS LIGHT");
+			System.out.println("Work Together To Realise The Ultimate Goal Of Landing On The Moon");
+			System.out.println("Game Rules:");
+			System.out.println("Game For 2-4 Players");
+			System.out.println("Roll Dice To Traverse The Board And Acquire Systems");
+			System.out.println("Option To Offer Systems To Other Players To Achieve Ultimate Goal");
+			System.out.println("If All Systems Are Developed Then Blast Off To The Moon");
+			System.out.println("Game Ends If Any Player Quits Or Runs Out Of Resources");
+			System.out.println("Suit UP!"); // MARK: this could include an option to start game
 		}
 	}
 
@@ -129,7 +136,7 @@ public class GameActions {
 			// showGameProgress()
 		} else if (wantsToQuit == false) {
 			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
-		} 
+		}
 	}
 
 	/**
@@ -140,8 +147,9 @@ public class GameActions {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
-		
-		// JASON: This appears to be unused but I don't know what the craic is with it. Should it be kept?
+
+		// JASON: This appears to be unused but I don't know what the craic is with it.
+		// Should it be kept?
 		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
@@ -208,7 +216,7 @@ public class GameActions {
 
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
-		player.setBalance(Go.GO_FUNDING); 
+		player.setBalance(Go.GO_FUNDING);
 		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
@@ -280,7 +288,8 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
+				System.out.println(
+						playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
 				String wantsToBuy = scanner.next();
 				if (wantsToBuy.equalsIgnoreCase("Y")) {
 					buyElement(playerOffered, element);
@@ -293,12 +302,12 @@ public class GameActions {
 		}
 
 	}
-	
-	// Handles various user inputs and returns a boolean value 
+
+	// Handles various user inputs and returns a boolean value
 	// TODO: Jason - Write JavaDoc
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
-		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
+		if (userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
 			return true;
 		} else if (userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("No")) {
 			return false;
@@ -308,22 +317,22 @@ public class GameActions {
 		}
 		return false;
 	}
-	
+
 	// Checks if the winning conditions have been met
 	public static void checkWinConditions() {
 		boolean allElementsDeveloped = false;
-		// TODO: Loop through all the squares in the board and see if they have been developed.
-		if(allElementsDeveloped == true) {
+		// TODO: Loop through all the squares in the board and see if they have been
+		// developed.
+		if (allElementsDeveloped == true) {
 			winGame();
 		}
 	}
-	
+
 	// Prints the "Win Game" message and ends the game.
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
 		System.out.println("Congratulations team, you have successfully launched!");
 		Game.gameOver = true;
 	}
-	
 
 }
