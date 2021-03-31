@@ -114,6 +114,7 @@ public class GameActions {
 		boolean wantsToSeeRules = getUserInput();
 
 		if (wantsToSeeRules == true) {
+<<<<<<< HEAD
 			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
 					+ "• If one player quits or bankrupt game ends \r\n"
 					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
@@ -127,6 +128,22 @@ public class GameActions {
 					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
 					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
 					+ "" + "\n|--------------------------------");
+=======
+			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\nï¿½ 2-4 players \r\n"
+					+ "ï¿½ If one player quits or bankrupt game ends \r\n"
+					+ "ï¿½ Players start at ï¿½Goï¿½ ï¿½ Kennedy Space Centre \r\n"
+					+ "ï¿½ Players take turns to roll the dice and move the num squares that they rolle\r\n"
+					+ "ï¿½ 2 6 sided dice \r\n"
+					+ "ï¿½ When a player lands on a square they have option to buy the square ï¿½ if they do not it is offered to the other players \r\n"
+					+ "ï¿½ If already owned the player must pay rent unless the square owner agrees not to charge\r\n"
+					+ "ï¿½ A player must own the whole system to develop a square \r\n"
+					+ "ï¿½ Rent increases the more developed a square is \r\n"
+					+ "ï¿½ If one player goes bankrupt or quits all players quit\r\n"
+					+ "ï¿½ When game ends show final state of play ï¿½ show all developments and player funds ï¿½ no need to convert properties / developments into equivalent funds \r\n"
+					+ "ï¿½ If all developments are completed then it announces the path ahead for Artemis project \r\n"
+					+ ""
+					+ "\n|--------------------------------");
+>>>>>>> master
 		}
 	}
 
@@ -169,7 +186,7 @@ public class GameActions {
 			checkElement(player, element);
 		} else if (square instanceof Chance) {
 			// chance method
-			chanceSquare(player);
+		Chance.chanceOutcome(player);
 		} else {
 			// go method
 			System.out.println("You're in "+SquareType.KENNEDY_SPACE_CENTRE);
