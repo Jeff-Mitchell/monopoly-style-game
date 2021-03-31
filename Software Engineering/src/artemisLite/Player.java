@@ -3,8 +3,6 @@
  */
 package artemisLite;
 
-
-
 /**
  * @author Stuart McCann
  * @author Jeff Mitchell
@@ -17,9 +15,7 @@ public class Player {
 	private int position;
 	private int balance;
 	private boolean bankrupt;
-	private boolean passGo; 
-
-	
+	private boolean passGo;
 
 	/**
 	 * Default
@@ -60,13 +56,13 @@ public class Player {
 	 * @param position the position to set
 	 */
 	public void setPosition(int position) {
-		if(this.position+position >=Board.NUM_SQUARES) {
+		if (this.position + position >= Board.NUM_SQUARES) {
 			this.setPassGo(true);
 		}
 		this.position = (this.position + position) % Board.NUM_SQUARES;
-		
+
 	}
-	
+
 	/**
 	 * 
 	 * @return
@@ -74,7 +70,7 @@ public class Player {
 	public boolean isPassGo() {
 		return passGo;
 	}
-	
+
 	/**
 	 * 
 	 * @param passGo
@@ -94,9 +90,10 @@ public class Player {
 	 * @param balance the balance to set
 	 */
 	public void setBalance(int balance) {
-		if (this.balance > 0) {
-			this.balance += balance;
-		} else {
+
+		this.balance += balance;
+		
+		if (this.balance <= 0) {
 			this.setBankrupt(true);
 		}
 	}
@@ -117,8 +114,8 @@ public class Player {
 		if (bankrupt) {
 			Game.gameOver = true;
 		}
-		
-		System.out.println(this.playerName+" you've gone bankrupt!");
+
+		System.out.println(this.playerName + " you've gone bankrupt!");
 
 	}
 
@@ -126,9 +123,12 @@ public class Player {
 	 * to string method which prints player stats
 	 */
 	public void printAll() {
-		System.out.println("\n|--------------------------------" + "\n|Player Name        = " + this.playerName + ""
-				+ "\n|Player Position    = " + this.position + "" + "\n|Player Balance     = " + this.balance + ""
-				+ "\n|Bankrupt?          = " + this.bankrupt + "" + "\n|--------------------------------");
+		GameActions.drawLine();
+		System.out.println("|Player Name        	= " + this.playerName);
+		System.out.println("|Player Postition       = " + this.position);
+		System.out.println("|Player Balance       	= " + this.balance);
+		System.out.println("|Bankrupt?       	= " + this.bankrupt);
+		GameActions.drawLine();
 	}
 
 	public void chargeRent(int rent) {
