@@ -45,23 +45,23 @@ public class Chance extends Square {
 			break;
 		case 2:
 			System.out.println("Lead engineer is ill, hire a replacement, pay 250 for a replacement");
-
+			player.setBalance(chanceDeduct);
 			break;
 		case 3:
 			System.out.println("Foreign actors have hacked the network. Pay 250 to repair!");
-
+			player.setBalance(chanceDeduct);
 			break;
 		case 4:
 			System.out.println("You have received a donation of 250 from a mystery billionaire!");
-
+			player.setBalance(chanceIncrease);
 			break;
 		case 5:
 			System.out.println("The president has decreased funding by 250");
-
+			player.setBalance(chanceDeduct);
 			break;
 		case 6:
 			System.out.println("Russia have made a breakthrough! Funding increased by 250");
-
+			player.setBalance(chanceIncrease);
 		}
 	}
 
