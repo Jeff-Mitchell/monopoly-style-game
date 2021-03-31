@@ -3,10 +3,6 @@
  */
 package artemisLite;
 
-<<<<<<< HEAD
-=======
-
->>>>>>> e632c358f32ba9842c8ddbbb84ddba62e58bd4a3
 /**
  * @author Stuart McCann
  * @author Jeff Mitchell

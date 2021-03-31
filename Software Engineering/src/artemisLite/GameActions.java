@@ -143,9 +143,7 @@ public class GameActions {
 					+ "� If one player goes bankrupt or quits all players quit\r\n"
 					+ "� When game ends show final state of play � show all developments and player funds � no need to convert properties / developments into equivalent funds \r\n"
 					+ "� If all developments are completed then it announces the path ahead for Artemis project \r\n"
-					+ ""
-					+ "\n|--------------------------------");
-
+					+ "" + "\n|--------------------------------");
 		}
 	}
 
@@ -175,13 +173,11 @@ public class GameActions {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
-<<<<<<< HEAD
 
-		
-=======
-		@SuppressWarnings("unused")
+		// JASON: This appears to be unused but I don't know what the craic is with it.
+		// Should it be kept?
+
 		SquareType squareType = square.getSquareType();
->>>>>>> e632c358f32ba9842c8ddbbb84ddba62e58bd4a3
 
 		if (player.isPassGo()) {
 			passGo(player);
@@ -190,16 +186,16 @@ public class GameActions {
 		GameActions.drawLine();
 		System.out.println("|You have landed on square " + player.getPosition());
 		GameActions.drawLine();
-		
+
 		if (square instanceof Element) {
 			Element element = (Element) square;
 			checkElement(player, element);
 		} else if (square instanceof Chance) {
 			// chance method
-		Chance.chanceOutcome(player);
+			Chance.chanceOutcome(player);
 		} else {
 			// go method
-			System.out.println("You're in "+SquareType.KENNEDY_SPACE_CENTRE);
+			System.out.println("You're in " + SquareType.KENNEDY_SPACE_CENTRE);
 			System.out.println("Relax, stock up on supplies and prepare for the journey ahead!");
 		}
 
@@ -213,76 +209,73 @@ public class GameActions {
 	 * @param element
 	 */
 	public static void checkElement(Player player, Element element) {
-		
-<<<<<<< HEAD
+
 		System.out.println("You have landed on " + element.getElementName());
 		System.out.println("This is part of the " + element.getElementType() + " system");
-		if (element.getOwner() == null && player.getBalance()>element.getRent() ) {
-=======
-		GameActions.drawLine();
-		System.out.println("|You have landed on " + element.getElementName());
-		System.out.println("|This is part of the " + element.getElementType() + " system");
-		GameActions.drawLine();
-		if (element.getOwner() == null) {
->>>>>>> e632c358f32ba9842c8ddbbb84ddba62e58bd4a3
-			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
-					+ "- would you like to buy it?");
-			boolean wantsToBuy = getUserInput();
-			if (wantsToBuy == true) {
-				// buy element method
-				buyElement(player, element);
-				element.setLevel(1);
-			} else {
-				// offer to the rest of players
-				offerElementToAll(player, element);
-			}
+		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 
-		}else if(element.getOwner()==null && player.getBalance()<=element.getRent()) {
-			System.out.println("No one owns this element but your balance is "+player.getBalance());
-			System.out.println("This element costs "+element.getRent());
-			System.out.println("You are not able to buy this element without going bankrupt");
-		}else if (element.getOwner() == player) {
-			System.out.println("You already own this element - would you like to buy a development?");
-			
-			if(element.getLevel()==1) {
-				System.out.println("This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
-				String wantsMinorUpgrade = scanner.next();
-				if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
-					buyMinorDevelopennt(player, element);
-					element.setLevel(2);
+			GameActions.drawLine();
+			System.out.println("|You have landed on " + element.getElementName());
+			System.out.println("|This is part of the " + element.getElementType() + " system");
+			GameActions.drawLine();
+			if (element.getOwner() == null) {
+
+				System.out.println("No one owns this Element yet. This element costs " + element.getRent()
+						+ "- would you like to buy it?");
+				boolean wantsToBuy = getUserInput();
+				if (wantsToBuy == true) {
+					// buy element method
+					buyElement(player, element);
+					element.setLevel(1);
 				} else {
 					// offer to the rest of players
 					offerElementToAll(player, element);
 				}
-				
-			} else if(element.getLevel()==2) {
-				System.out.println("This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
-				String wantsMinorUpgrade = scanner.next();
-				if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
-					buyMajorDevelopennt(player, element);
-					element.setLevel(3);
-				} else {
-					// offer to the rest of players
-					offerElementToAll(player, element);
+
+			} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
+				System.out.println("No one owns this element but your balance is " + player.getBalance());
+				System.out.println("This element costs " + element.getRent());
+				System.out.println("You are not able to buy this element without going bankrupt");
+			} else if (element.getOwner() == player) {
+				System.out.println("You already own this element - would you like to buy a development?");
+
+				if (element.getLevel() == 1) {
+					System.out.println(
+							"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+					String wantsMinorUpgrade = scanner.next();
+					if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
+						buyMinorDevelopennt(player, element);
+						element.setLevel(2);
+					} else {
+						// offer to the rest of players
+						offerElementToAll(player, element);
+					}
+
+				} else if (element.getLevel() == 2) {
+					System.out.println(
+							"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+					String wantsMinorUpgrade = scanner.next();
+					if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
+						buyMajorDevelopennt(player, element);
+						element.setLevel(3);
+					} else {
+						// offer to the rest of players
+						offerElementToAll(player, element);
+					}
+				} else if (element.getLevel() == 3) {
+					System.out.println("This square has already been fully upgraded! moving on..");
 				}
-			} else if(element.getLevel()==3) {
-				System.out.println("This square has already been fully upgraded! moving on..");
+
+			} else {
+				System.out.println(element.getOwner().getPlayerName() + " owns this square");
+				System.out.println("The rent for this square is: " + element.getRent());
+				// Calls the charge rent method
+				player.chargeRent(element.getRent());
+				System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+				// ask player if he wishes to charge rent
+				// if does player.setBalance(-element.getRent())
+				// if doesnt output thanks and move on
 			}
-			
-			
-			
-			
-			
-			
-		} else {
-			System.out.println(element.getOwner().getPlayerName() + " owns this square");
-			System.out.println("The rent for this square is: " + element.getRent());
-			// Calls the charge rent method
-			player.chargeRent(element.getRent());
-			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
-			// ask player if he wishes to charge rent
-			// if does player.setBalance(-element.getRent())
-			// if doesnt output thanks and move on
 		}
 
 	}
@@ -359,9 +352,7 @@ public class GameActions {
 		}
 
 	}
-	
-	
-	
+
 	public static void buyMinorDevelopennt(Player player, Element element) {
 
 		System.out.println("This minor updade costs " + element.getMinorUpgrade());
@@ -375,11 +366,11 @@ public class GameActions {
 					+ element.getElementType() + " system");
 			System.out.println("Your balance in now: " + player.getBalance());
 		} else if (wantsToUpgrade.equalsIgnoreCase("N")) {
-			//add group method offer when added
+			// add group method offer when added
 		}
 
 	}
-	
+
 	public static void buyMajorDevelopennt(Player player, Element element) {
 
 		System.out.println("This major updade costs " + element.getMinorUpgrade());
@@ -393,10 +384,10 @@ public class GameActions {
 					+ element.getElementType() + " system");
 			GameActions.drawLine();
 			System.out.println("|This square has now been fully upgraded");
-			GameActions.drawLine();			
+			GameActions.drawLine();
 			System.out.println("Your balance in now: " + player.getBalance());
 		} else if (wantsToUpgrade.equalsIgnoreCase("N")) {
-			//add group method offer when added
+			// add group method offer when added
 		}
 
 	}
@@ -426,7 +417,7 @@ public class GameActions {
 	}
 	
 	public static void drawLine() {
-		System.out.println("|--------------------------------");		
+		System.out.println("|--------------------------------");
 	}
 
 	// Handles various user inputs and returns a boolean value
