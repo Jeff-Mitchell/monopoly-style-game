@@ -114,7 +114,7 @@ public class GameActions {
 		boolean wantsToSeeRules = getUserInput();
 
 		if (wantsToSeeRules == true) {
-<<<<<<< HEAD
+
 			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
 					+ "• If one player quits or bankrupt game ends \r\n"
 					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
@@ -128,7 +128,7 @@ public class GameActions {
 					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
 					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
 					+ "" + "\n|--------------------------------");
-=======
+
 			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\nï¿½ 2-4 players \r\n"
 					+ "ï¿½ If one player quits or bankrupt game ends \r\n"
 					+ "ï¿½ Players start at ï¿½Goï¿½ ï¿½ Kennedy Space Centre \r\n"
@@ -143,7 +143,7 @@ public class GameActions {
 					+ "ï¿½ If all developments are completed then it announces the path ahead for Artemis project \r\n"
 					+ ""
 					+ "\n|--------------------------------");
->>>>>>> master
+
 		}
 	}
 
