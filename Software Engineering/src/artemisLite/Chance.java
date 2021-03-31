@@ -30,7 +30,7 @@ public class Chance extends Square {
 
 	}
 
-	public void chanceOutcome() {
+	public static void chanceOutcome(Player player) {
 
 		Random random = new Random();
 		int randomNumber;
@@ -41,7 +41,7 @@ public class Chance extends Square {
 		switch (randomNumber) {
 		case 1:
 			System.out.println("The President has increased your project funding by 250");
-
+			player.setBalance(chanceIncrease);
 			break;
 		case 2:
 			System.out.println("Lead engineer is ill, hire a replacement, pay 250 for a replacement");
@@ -63,14 +63,6 @@ public class Chance extends Square {
 			System.out.println("Russia have made a breakthrough! Funding increased by 250");
 
 		}
-	}
-
-	public void addFunding(Player player) {
-		player.setBalance(chanceIncrease);
-	}
-
-	public void subtractFunding(Player player) {
-		player.setBalance(chanceDeduct);
 	}
 
 }
