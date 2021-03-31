@@ -14,9 +14,10 @@ public class Element extends Square {
 	private ElementName elementName; 
 	private ElementType elementType; 
 	private Player owner; 
-	private int numMinorDevelopments; 
-	private boolean majorDevelopment; 
 	private int rent;
+	private int minorUpgrade;
+	private int majorUpgrade;
+	private int level;
 	
 	/**
 	 * 
@@ -78,30 +79,6 @@ public class Element extends Square {
 		this.owner = owner;
 	}
 	/**
-	 * @return the numMinorDevelopments
-	 */
-	public int getNumMinorDevelopments() {
-		return numMinorDevelopments;
-	}
-	/**
-	 * @param numMinorDevelopments the numMinorDevelopments to set
-	 */
-	public void setNumMinorDevelopments(int numMinorDevelopments) {
-		this.numMinorDevelopments = numMinorDevelopments;
-	}
-	/**
-	 * @return the majorDevelopment
-	 */
-	public boolean isMajorDevelopment() {
-		return majorDevelopment;
-	}
-	/**
-	 * @param majorDevelopment the majorDevelopment to set
-	 */
-	public void setMajorDevelopment(boolean majorDevelopment) {
-		this.majorDevelopment = majorDevelopment;
-	}
-	/**
 	 * @return the rent
 	 */
 	public int getRent() {
@@ -112,6 +89,30 @@ public class Element extends Square {
 	 */
 	public void setRent(int rent) {
 		this.rent = rent;
+	}
+
+	public int getMajorUpgrade() {
+		return majorUpgrade;
+	}
+
+	public void setMajorUpgrade(int majorUpgrade) {
+		this.majorUpgrade = majorUpgrade;
+	}
+
+	public int getMinorUpgrade() {
+		return minorUpgrade;
+	}
+
+	public void setMinorUpgrade(int minorUpgrade) {
+		this.minorUpgrade = minorUpgrade;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	} 
 	
 	

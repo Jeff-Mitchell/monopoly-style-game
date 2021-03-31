@@ -4,7 +4,6 @@
 package artemisLite;
 
 
-
 /**
  * @author Stuart McCann
  * @author Jeff Mitchell
@@ -126,9 +125,12 @@ public class Player {
 	 * to string method which prints player stats
 	 */
 	public void printAll() {
-		System.out.println("\n|--------------------------------" + "\n|Player Name        = " + this.playerName + ""
-				+ "\n|Player Position    = " + this.position + "" + "\n|Player Balance     = " + this.balance + ""
-				+ "\n|Bankrupt?          = " + this.bankrupt + "" + "\n|--------------------------------");
+		GameActions.drawLine();
+		System.out.println("|Player Name        	= " + this.playerName);
+		System.out.println("|Player Postition       = " + this.position);
+		System.out.println("|Player Balance       	= " + this.balance);
+		System.out.println("|Bankrupt?       	= " + this.bankrupt);
+		GameActions.drawLine();
 	}
 
 }
