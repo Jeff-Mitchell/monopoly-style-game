@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
 /**
- * @author Stuart McCann, Jason McKillen
- * TODO: Write game rules
- * TODO: JavaDoc methods and variables
- * TODO: Add the buy development class (separated into major and minor developments)
- * TODO: Implement the game winning conditions into the code
+ * @author Stuart McCann, Jason McKillen TODO: Write game rules TODO: JavaDoc
+ *         methods and variables TODO: Add the buy development class (separated
+ *         into major and minor developments) TODO: Implement the game winning
+ *         conditions into the code
  *
  */
 public class GameActions {
@@ -29,9 +27,11 @@ public class GameActions {
 		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
 		int numberOfPlayers = scanner.nextInt();
 
-		// Checks if the number of players is invalid and prompts the user to enter a valid number.
+		// Checks if the number of players is invalid and prompts the user to enter a
+		// valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out
+					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
@@ -64,11 +64,12 @@ public class GameActions {
 		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
 		boolean readyToRoll = getUserInput();
 
-		// JASON: Is there any way to make game over automatically quit the game? the way I'm currently
+		// JASON: Is there any way to make game over automatically quit the game? the
+		// way I'm currently
 		// doing it makes the method finish it's current loop before quitting
 		if (readyToRoll == false) {
 			System.out.println("Would you like to quit the game? Y/N");
-			if(getUserInput() == true) {
+			if (getUserInput() == true) {
 				quitGame();
 			}
 		}
@@ -82,7 +83,7 @@ public class GameActions {
 		Random random = new Random();
 
 		// Adds one to the dice value in order to avoid returning a value of 0.
-		int diceValue = random.nextInt(12) + 1;
+		int diceValue = random.nextInt(11) + 2;
 
 		// Tells the user what value they rolled.
 		System.out.println("You rolled a " + diceValue);
@@ -113,6 +114,21 @@ public class GameActions {
 		boolean wantsToSeeRules = getUserInput();
 
 		if (wantsToSeeRules == true) {
+
+			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
+					+ "• If one player quits or bankrupt game ends \r\n"
+					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
+					+ "• Players take turns to roll the dice and move the num squares that they rolle\r\n"
+					+ "• 2 6 sided dice \r\n"
+					+ "• When a player lands on a square they have option to buy the square – if they do not it is offered to the other players \r\n"
+					+ "• If already owned the player must pay rent unless the square owner agrees not to charge\r\n"
+					+ "• A player must own the whole system to develop a square \r\n"
+					+ "• Rent increases the more developed a square is \r\n"
+					+ "• If one player goes bankrupt or quits all players quit\r\n"
+					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
+					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
+					+ "" + "\n|--------------------------------");
+
 			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\nï¿½ 2-4 players \r\n"
 					+ "ï¿½ If one player quits or bankrupt game ends \r\n"
 					+ "ï¿½ Players start at ï¿½Goï¿½ ï¿½ Kennedy Space Centre \r\n"
@@ -127,6 +143,7 @@ public class GameActions {
 					+ "ï¿½ If all developments are completed then it announces the path ahead for Artemis project \r\n"
 					+ ""
 					+ "\n|--------------------------------");
+
 		}
 	}
 
@@ -145,7 +162,7 @@ public class GameActions {
 			// showGameProgress()
 		} else if (wantsToQuit == false) {
 			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
-		} 
+		}
 	}
 
 	/**
@@ -156,9 +173,8 @@ public class GameActions {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
+
 		
-		// JASON: This appears to be unused but I don't know what the craic is with it. Should it be kept?
-		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
 			passGo(player);
@@ -173,6 +189,8 @@ public class GameActions {
 		Chance.chanceOutcome(player);
 		} else {
 			// go method
+			System.out.println("You're in "+SquareType.KENNEDY_SPACE_CENTRE);
+			System.out.println("Relax, stock up on supplies and prepare for the journey ahead!");
 		}
 
 		// display options method
@@ -185,10 +203,10 @@ public class GameActions {
 	 * @param element
 	 */
 	public static void checkElement(Player player, Element element) {
-
+		
 		System.out.println("You have landed on " + element.getElementName());
 		System.out.println("This is part of the " + element.getElementType() + " system");
-		if (element.getOwner() == null) {
+		if (element.getOwner() == null && player.getBalance()>element.getRent() ) {
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
 					+ "- would you like to buy it?");
 			boolean wantsToBuy = getUserInput();
@@ -200,7 +218,11 @@ public class GameActions {
 				offerElementToAll(player, element);
 			}
 
-		} else if (element.getOwner() == player) {
+		}else if(element.getOwner()==null && player.getBalance()<=element.getRent()) {
+			System.out.println("No one owns this element but your balance is "+player.getBalance());
+			System.out.println("This element costs "+element.getRent());
+			System.out.println("You are not able to buy this element without going bankrupt");
+		}else if (element.getOwner() == player) {
 			System.out.println("You already own this element - would you like to buy a development?");
 			// buy development method
 		} else {
@@ -224,7 +246,7 @@ public class GameActions {
 
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
-		player.setBalance(Go.GO_FUNDING); 
+		player.setBalance(Go.GO_FUNDING);
 		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
@@ -283,6 +305,7 @@ public class GameActions {
 			System.out.println("Your balance in now: " + player.getBalance());
 		} else if (wantsToBuy == false) {
 			// offer to group method
+			offerElementToAll(player, element);
 		}
 
 	}
@@ -296,7 +319,8 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
+				System.out.println(
+						playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
 				String wantsToBuy = scanner.next();
 				if (wantsToBuy.equalsIgnoreCase("Y")) {
 					buyElement(playerOffered, element);
@@ -309,12 +333,12 @@ public class GameActions {
 		}
 
 	}
-	
-	// Handles various user inputs and returns a boolean value 
+
+	// Handles various user inputs and returns a boolean value
 	// TODO: Jason - Write JavaDoc
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
-		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
+		if (userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
 			return true;
 		} else if (userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("No")) {
 			return false;
@@ -324,27 +348,28 @@ public class GameActions {
 		}
 		return false;
 	}
-	
+
 	// Checks if the winning conditions have been met
 	public static void checkWinConditions() {
 		boolean allElementsDeveloped = false;
-		// TODO: Loop through all the squares in the board and see if they have been developed.
-		if(allElementsDeveloped == true) {
+		// TODO: Loop through all the squares in the board and see if they have been
+		// developed.
+		if (allElementsDeveloped == true) {
 			winGame();
 		}
 	}
-	
+
 	// Prints the "Win Game" message and ends the game.
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
 		System.out.println("Congratulations team, you have successfully launched!");
 		System.out.println("Incoming transmission:");
 		// TODO: Start thread here
-		
+
 		System.out.println("In 2021, " + Game.players.size() + " intrepid explorers took the next step for mankind.");
-		// TODO: Add extra details here about who owned which elements as per project outline doc
+		// TODO: Add extra details here about who owned which elements as per project
+		// outline doc
 		quitGame();
 	}
-	
 
 }

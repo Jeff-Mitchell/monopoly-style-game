@@ -25,33 +25,36 @@ public class Game {
 		System.out.println("Welcome to Artemis Lite");
 
 		GameActions.setNumberOfPlayers();
-		GameActions.showAllPlayerStats();
-
-		// JEFF: Added beginnings of show rules code.
-		GameActions.showRules();
 
 		// Stuart: game in do while loop with condition gameOver = true
 		// any methods that cause game to end i.e bankrupt / quit will set gameOver =
 		// false
+		
+		GameActions.showAllPlayerStats();
+		// JEFF: Added beginnings of show rules code.
+		GameActions.showRules();
 		do {
+
+			
 
 			// Stuart: For loop through an arrayList of players?
 			for (Player player : players) {
 
 				// Rolls the dice
 				int playerRoll = GameActions.rollDice(player);
-				
+
 				// Moves the player to their new position from the dice roll
 				player.setPosition(playerRoll);
 
-				// Shows the player information about their new position and their available choices
+				// Shows the player information about their new position and their available
+				// choices
 				GameActions.landOnSquare(player);
-				
+
 				// Checks if the conditions necessary to win the game have been met
 				GameActions.checkWinConditions();
 			}
 
-		} while (!gameOver);
+		}while (!gameOver); 
 
 		// game now over
 
