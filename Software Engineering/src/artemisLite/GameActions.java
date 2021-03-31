@@ -7,13 +7,11 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
-
 /**
- * @author Stuart McCann, Jason McKillen
- * TODO: Write game rules
- * TODO: JavaDoc methods and variables
- * TODO: Add the buy development class (separated into major and minor developments)
- * TODO: Implement the game winning conditions into the code
+ * @author Stuart McCann, Jason McKillen TODO: Write game rules TODO: JavaDoc
+ *         methods and variables TODO: Add the buy development class (separated
+ *         into major and minor developments) TODO: Implement the game winning
+ *         conditions into the code
  *
  */
 public class GameActions {
@@ -29,14 +27,16 @@ public class GameActions {
 		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
 		int numberOfPlayers = scanner.nextInt();
 
-		// Checks if the number of players is invalid and prompts the user to enter a valid number.
+		// Checks if the number of players is invalid and prompts the user to enter a
+		// valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out
+					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
 				GameActions.quitGame();
-				break; 
+				break;
 			}
 
 		}
@@ -67,8 +67,8 @@ public class GameActions {
 
 		if (!userInput) {
 			System.out.println("Would you like to quit the game? Y/N");
-			userInput = getUserInput(); 
-			if(userInput) {
+			userInput = getUserInput();
+			if (userInput) {
 				quitGame();
 			}
 		}
@@ -133,7 +133,7 @@ public class GameActions {
 			// showGameProgress()
 		} else if (wantsToQuit == false) {
 			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
-		} 
+		}
 	}
 
 	/**
@@ -144,10 +144,11 @@ public class GameActions {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
-		
-		// JASON: This appears to be unused but I don't know what the craic is with it. Should it be kept?
+
+		// JASON: This appears to be unused but I don't know what the craic is with it.
+		// Should it be kept?
 		SquareType squareType = square.getSquareType();
-		//Stuart: this can also be put in player.setPosition()
+		// Stuart: this can also be put in player.setPosition()
 		if (player.isPassGo()) {
 			passGo(player);
 		}
@@ -177,7 +178,7 @@ public class GameActions {
 		System.out.println("You have landed on " + element.getElementName());
 		System.out.println("This is part of the " + element.getElementType() + " system");
 		if (element.getOwner() == null) {
-			
+
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
 					+ "- would you like to buy it?");
 			boolean wantsToBuy = getUserInput();
@@ -196,8 +197,9 @@ public class GameActions {
 			System.out.println(element.getOwner().getPlayerName() + " owns this square");
 			System.out.println("The rent for this square is: " + element.getRent());
 			// Calls the charge rent method
-			player.chargeRent(element.getRent());
-			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+			rent(player, element);
+			//player.chargeRent(element.getRent());
+			//System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 			// ask player if he wishes to charge rent
 			// if does player.setBalance(-element.getRent())
 			// if doesnt output thanks and move on
@@ -213,7 +215,7 @@ public class GameActions {
 
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
-		player.setBalance(Go.GO_FUNDING); 
+		player.setBalance(Go.GO_FUNDING);
 		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
@@ -286,7 +288,8 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
+				System.out.println(
+						playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
 				String wantsToBuy = scanner.next();
 				if (wantsToBuy.equalsIgnoreCase("Y")) {
 					buyElement(playerOffered, element);
@@ -299,12 +302,12 @@ public class GameActions {
 		}
 
 	}
-	
-	// Handles various user inputs and returns a boolean value 
+
+	// Handles various user inputs and returns a boolean value
 	// TODO: Jason - Write JavaDoc
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
-		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
+		if (userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
 			return true;
 		} else if (userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("No")) {
 			return false;
@@ -314,16 +317,17 @@ public class GameActions {
 		}
 		return false;
 	}
-	
+
 	// Checks if the winning conditions have been met
 	public static void checkWinConditions() {
 		boolean allElementsDeveloped = false;
-		// TODO: Loop through all the squares in the board and see if they have been developed.
-		if(allElementsDeveloped == true) {
+		// TODO: Loop through all the squares in the board and see if they have been
+		// developed.
+		if (allElementsDeveloped == true) {
 			winGame();
 		}
 	}
-	
+
 	// Prints the "Win Game" message and ends the game.
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
@@ -331,5 +335,32 @@ public class GameActions {
 		Game.gameOver = true;
 	}
 	
+	/**
+	 * 
+	 * @param player
+	 * @param element
+	 */
+	public static void rent(Player player, Element element) {
+		String ownerName = element.getOwner().getPlayerName(); 
+	System.out.println(ownerName+" do you want to charge "+player.getPlayerName()+" rent?");
+		boolean userInput = getUserInput(); 
+		if(userInput) {
+			System.out.println(player.getPlayerName()+" you have paid "+ownerName+
+					" "+element.getRent());
+			System.out.println("Your balance is now "+player.getBalance());
+			player.chargeRent(element.getRent());
+			for(Player owner : Game.players) {
+				if(owner.getPlayerName().equalsIgnoreCase(ownerName)) {
+					owner.setBalance(element.getRent());
+					System.out.println(ownerName+ " your balance is now "+owner.getBalance());
+				}
+			}
+		}else {
+			System.out.println(ownerName+" you have acted in the greater good and the Artemis program will succeed with your help");
+		}
+	
+	
+	
+	}
 
 }
