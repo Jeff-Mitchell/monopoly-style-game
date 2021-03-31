@@ -144,10 +144,6 @@ public class GameActions {
 					+ "� When game ends show final state of play � show all developments and player funds � no need to convert properties / developments into equivalent funds \r\n"
 					+ "� If all developments are completed then it announces the path ahead for Artemis project \r\n"
 					+ "" + "\n|--------------------------------");
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 		}
 	}
 
@@ -178,11 +174,9 @@ public class GameActions {
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
 
-<<<<<<< HEAD
 		// JASON: This appears to be unused but I don't know what the craic is with it.
 		// Should it be kept?
-=======
->>>>>>> origin/master
+
 		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
@@ -421,14 +415,11 @@ public class GameActions {
 		}
 
 	}
-
-<<<<<<< HEAD
-=======
+	
 	public static void drawLine() {
 		System.out.println("|--------------------------------");
 	}
 
->>>>>>> origin/master
 	// Handles various user inputs and returns a boolean value
 	// TODO: Jason - Write JavaDoc
 	public static boolean getUserInput() {
