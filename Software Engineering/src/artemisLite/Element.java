@@ -15,9 +15,15 @@ public class Element extends Square {
 	private ElementName elementName; 
 	private ElementType elementType; 
 	private Player owner; 
+<<<<<<< HEAD
 	private boolean minorDevelopment;
 	private boolean majorDevelopment; 
+=======
+>>>>>>> e632c358f32ba9842c8ddbbb84ddba62e58bd4a3
 	private int rent;
+	private int minorUpgrade;
+	private int majorUpgrade;
+	private int level;
 	
 	/**
 	 * 
@@ -84,6 +90,7 @@ public class Element extends Square {
 	}
 	
 	/**
+<<<<<<< HEAD
 	 * @return the majorDevelopment
 	 */
 	public boolean isMinorDevelopment() {
@@ -109,6 +116,8 @@ public class Element extends Square {
 		this.majorDevelopment = majorDevelopment;
 	}
 	/**
+=======
+>>>>>>> e632c358f32ba9842c8ddbbb84ddba62e58bd4a3
 	 * @return the rent
 	 */
 	public int getRent() {
@@ -119,6 +128,30 @@ public class Element extends Square {
 	 */
 	public void setRent(int rent) {
 		this.rent = rent;
+	}
+
+	public int getMajorUpgrade() {
+		return majorUpgrade;
+	}
+
+	public void setMajorUpgrade(int majorUpgrade) {
+		this.majorUpgrade = majorUpgrade;
+	}
+
+	public int getMinorUpgrade() {
+		return minorUpgrade;
+	}
+
+	public void setMinorUpgrade(int minorUpgrade) {
+		this.minorUpgrade = minorUpgrade;
+	}
+
+	public int getLevel() {
+		return level;
+	}
+
+	public void setLevel(int level) {
+		this.level = level;
 	} 
 	
 	
