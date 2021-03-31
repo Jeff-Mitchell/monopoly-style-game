@@ -7,11 +7,13 @@ import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
+
 /**
- * @author Stuart McCann, Jason McKillen TODO: Write game rules TODO: JavaDoc
- *         methods and variables TODO: Add the buy development class (separated
- *         into major and minor developments) TODO: Implement the game winning
- *         conditions into the code
+ * @author Stuart McCann, Jason McKillen
+ * TODO: Write game rules
+ * TODO: JavaDoc methods and variables
+ * TODO: Add the buy development class (separated into major and minor developments)
+ * TODO: Implement the game winning conditions into the code
  *
  */
 public class GameActions {
@@ -27,15 +29,13 @@ public class GameActions {
 		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
 		int numberOfPlayers = scanner.nextInt();
 
-		// Checks if the number of players is invalid and prompts the user to enter a
-		// valid number.
+		// Checks if the number of players is invalid and prompts the user to enter a valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out
-					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
-				GameActions.quitGame();
+				quitGame();
 			}
 
 		}
@@ -62,17 +62,21 @@ public class GameActions {
 
 		// Prompts the user to roll the dice.
 		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
-		String userInput = scanner.next();
+		boolean readyToRoll = getUserInput();
 
-		if (userInput.equalsIgnoreCase("N")) {
+		// JASON: Is there any way to make game over automatically quit the game? the way I'm currently
+		// doing it makes the method finish it's current loop before quitting
+		if (readyToRoll == false) {
 			System.out.println("Would you like to quit the game? Y/N");
-
+			if(getUserInput() == true) {
+				quitGame();
+			}
 		}
 
 		// Ensures that the user is ready to roll the dice.
-		while (!userInput.equalsIgnoreCase("Y")) {
+		while (!readyToRoll) {
 			System.out.println("Enter Y when you are ready to roll the dice.");
-			userInput = scanner.next();
+			readyToRoll = getUserInput();
 		}
 
 		Random random = new Random();
@@ -106,18 +110,23 @@ public class GameActions {
 	 */
 	public static void showRules() {
 		System.out.println("Would you like to read the rules of the game? (Y/N)");
-		String wantsRules = scanner.next();
+		boolean wantsToSeeRules = getUserInput();
 
-		if (wantsRules.equalsIgnoreCase("Y")) {
-			System.out.println("WELCOME TO ARTEMIS LIGHT");
-			System.out.println("Work Together To Realise The Ultimate Goal Of Landing On The Moon");
-			System.out.println("Game Rules:");
-			System.out.println("Game For 2-4 Players");
-			System.out.println("Roll Dice To Traverse The Board And Acquire Systems");
-			System.out.println("Option To Offer Systems To Other Players To Achieve Ultimate Goal");
-			System.out.println("If All Systems Are Developed Then Blast Off To The Moon");
-			System.out.println("Game Ends If Any Player Quits Or Runs Out Of Resources");
-			System.out.println("Suit UP!"); // MARK: this could include an option to start game
+		if (wantsToSeeRules == true) {
+			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
+					+ "• If one player quits or bankrupt game ends \r\n"
+					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
+					+ "• Players take turns to roll the dice and move the num squares that they rolle\r\n"
+					+ "• 2 6 sided dice \r\n"
+					+ "• When a player lands on a square they have option to buy the square – if they do not it is offered to the other players \r\n"
+					+ "• If already owned the player must pay rent unless the square owner agrees not to charge\r\n"
+					+ "• A player must own the whole system to develop a square \r\n"
+					+ "• Rent increases the more developed a square is \r\n"
+					+ "• If one player goes bankrupt or quits all players quit\r\n"
+					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
+					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
+					+ ""
+					+ "\n|--------------------------------");
 		}
 	}
 
@@ -136,7 +145,7 @@ public class GameActions {
 			// showGameProgress()
 		} else if (wantsToQuit == false) {
 			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
-		}
+		} 
 	}
 
 	/**
@@ -147,9 +156,8 @@ public class GameActions {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
-
-		// JASON: This appears to be unused but I don't know what the craic is with it.
-		// Should it be kept?
+		
+		// JASON: This appears to be unused but I don't know what the craic is with it. Should it be kept?
 		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
@@ -216,7 +224,7 @@ public class GameActions {
 
 		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
 		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
-		player.setBalance(Go.GO_FUNDING);
+		player.setBalance(Go.GO_FUNDING); 
 		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
 		player.setPassGo(false);
 
@@ -227,7 +235,7 @@ public class GameActions {
 	 * @param player
 	 */
 	public static void chanceSquare(Player player) {
-		System.out.println("You have recieved a NASA Marshall's update!");
+		System.out.println("You have received a NASA Marshall's update!");
 		int randomNum = random.nextInt(6);
 
 		switch (randomNum) {
@@ -288,8 +296,7 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(
-						playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
+				System.out.println(playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
 				String wantsToBuy = scanner.next();
 				if (wantsToBuy.equalsIgnoreCase("Y")) {
 					buyElement(playerOffered, element);
@@ -302,12 +309,12 @@ public class GameActions {
 		}
 
 	}
-
-	// Handles various user inputs and returns a boolean value
+	
+	// Handles various user inputs and returns a boolean value 
 	// TODO: Jason - Write JavaDoc
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
-		if (userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
+		if(userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
 			return true;
 		} else if (userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("No")) {
 			return false;
@@ -317,22 +324,27 @@ public class GameActions {
 		}
 		return false;
 	}
-
+	
 	// Checks if the winning conditions have been met
 	public static void checkWinConditions() {
 		boolean allElementsDeveloped = false;
-		// TODO: Loop through all the squares in the board and see if they have been
-		// developed.
-		if (allElementsDeveloped == true) {
+		// TODO: Loop through all the squares in the board and see if they have been developed.
+		if(allElementsDeveloped == true) {
 			winGame();
 		}
 	}
-
+	
 	// Prints the "Win Game" message and ends the game.
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
 		System.out.println("Congratulations team, you have successfully launched!");
-		Game.gameOver = true;
+		System.out.println("Incoming transmission:");
+		// TODO: Start thread here
+		
+		System.out.println("In 2021, " + Game.players.size() + " intrepid explorers took the next step for mankind.");
+		// TODO: Add extra details here about who owned which elements as per project outline doc
+		quitGame();
 	}
+	
 
 }
