@@ -35,7 +35,7 @@ public class GameActions {
 			numberOfPlayers = scanner.nextInt();
 			// Stuart: added if statement for escape function to call quit game method
 			if (numberOfPlayers == 0) {
-				GameActions.quitGame();
+				quitGame();
 			}
 
 		}
@@ -62,17 +62,21 @@ public class GameActions {
 
 		// Prompts the user to roll the dice.
 		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
-		String userInput = scanner.next();
+		boolean readyToRoll = getUserInput();
 
-		if (userInput.equalsIgnoreCase("N")) {
+		// JASON: Is there any way to make game over automatically quit the game? the way I'm currently
+		// doing it makes the method finish it's current loop before quitting
+		if (readyToRoll == false) {
 			System.out.println("Would you like to quit the game? Y/N");
-
+			if(getUserInput() == true) {
+				quitGame();
+			}
 		}
 
 		// Ensures that the user is ready to roll the dice.
-		while (!userInput.equalsIgnoreCase("Y")) {
+		while (!readyToRoll) {
 			System.out.println("Enter Y when you are ready to roll the dice.");
-			userInput = scanner.next();
+			readyToRoll = getUserInput();
 		}
 
 		Random random = new Random();
@@ -106,10 +110,22 @@ public class GameActions {
 	 */
 	public static void showRules() {
 		System.out.println("Would you like to read the rules of the game? (Y/N)");
-		String wantsRules = scanner.next();
+		boolean wantsToSeeRules = getUserInput();
 
-		if (wantsRules.equalsIgnoreCase("Y")) {
-			System.out.println("\n|--------------------------------" + "\n|**TYPE UP RULES LATER**"
+		if (wantsToSeeRules == true) {
+			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
+					+ "• If one player quits or bankrupt game ends \r\n"
+					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
+					+ "• Players take turns to roll the dice and move the num squares that they rolle\r\n"
+					+ "• 2 6 sided dice \r\n"
+					+ "• When a player lands on a square they have option to buy the square – if they do not it is offered to the other players \r\n"
+					+ "• If already owned the player must pay rent unless the square owner agrees not to charge\r\n"
+					+ "• A player must own the whole system to develop a square \r\n"
+					+ "• Rent increases the more developed a square is \r\n"
+					+ "• If one player goes bankrupt or quits all players quit\r\n"
+					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
+					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
+					+ ""
 					+ "\n|--------------------------------");
 		}
 	}
@@ -219,7 +235,7 @@ public class GameActions {
 	 * @param player
 	 */
 	public static void chanceSquare(Player player) {
-		System.out.println("You have recieved a NASA Marshall's update!");
+		System.out.println("You have received a NASA Marshall's update!");
 		int randomNum = random.nextInt(6);
 
 		switch (randomNum) {
@@ -322,7 +338,12 @@ public class GameActions {
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
 		System.out.println("Congratulations team, you have successfully launched!");
-		Game.gameOver = true;
+		System.out.println("Incoming transmission:");
+		// TODO: Start thread here
+		
+		System.out.println("In 2021, " + Game.players.size() + " intrepid explorers took the next step for mankind.");
+		// TODO: Add extra details here about who owned which elements as per project outline doc
+		quitGame();
 	}
 	
 
