@@ -141,8 +141,7 @@ public class GameActions {
 					+ "� If one player goes bankrupt or quits all players quit\r\n"
 					+ "� When game ends show final state of play � show all developments and player funds � no need to convert properties / developments into equivalent funds \r\n"
 					+ "� If all developments are completed then it announces the path ahead for Artemis project \r\n"
-					+ ""
-					+ "\n|--------------------------------");
+					+ "" + "\n|--------------------------------");
 
 		}
 	}
@@ -174,8 +173,6 @@ public class GameActions {
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
 
-		
-
 		if (player.isPassGo()) {
 			passGo(player);
 		}
@@ -186,10 +183,10 @@ public class GameActions {
 			checkElement(player, element);
 		} else if (square instanceof Chance) {
 			// chance method
-		Chance.chanceOutcome(player);
+			Chance.chanceOutcome(player);
 		} else {
 			// go method
-			System.out.println("You're in "+SquareType.KENNEDY_SPACE_CENTRE);
+			System.out.println("You're in " + SquareType.KENNEDY_SPACE_CENTRE);
 			System.out.println("Relax, stock up on supplies and prepare for the journey ahead!");
 		}
 
@@ -203,10 +200,10 @@ public class GameActions {
 	 * @param element
 	 */
 	public static void checkElement(Player player, Element element) {
-		
+
 		System.out.println("You have landed on " + element.getElementName());
 		System.out.println("This is part of the " + element.getElementType() + " system");
-		if (element.getOwner() == null && player.getBalance()>element.getRent() ) {
+		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
 					+ "- would you like to buy it?");
 			boolean wantsToBuy = getUserInput();
@@ -218,11 +215,11 @@ public class GameActions {
 				offerElementToAll(player, element);
 			}
 
-		}else if(element.getOwner()==null && player.getBalance()<=element.getRent()) {
-			System.out.println("No one owns this element but your balance is "+player.getBalance());
-			System.out.println("This element costs "+element.getRent());
+		} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
+			System.out.println("No one owns this element but your balance is " + player.getBalance());
+			System.out.println("This element costs " + element.getRent());
 			System.out.println("You are not able to buy this element without going bankrupt");
-		}else if (element.getOwner() == player) {
+		} else if (element.getOwner() == player) {
 			System.out.println("You already own this element - would you like to buy a development?");
 			// buy development method
 		} else {
