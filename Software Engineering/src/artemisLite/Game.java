@@ -6,6 +6,16 @@ package artemisLite;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+/**
+ * 
+ * @author Stuart McCann
+ * @author Jason McKillen
+ * @author Mark Davidson
+ * @author Jeff Mitchell
+ * 
+ * TODO: JavaDoc methods and variables
+ *
+ */
 public class Game {
 
 	// Stuart: made NUM_SQUARES protected in board class so is available project
@@ -13,8 +23,6 @@ public class Game {
 	// duplicate and easy update
 	// private static final int NUM_SQUARES = 12;
 
-	// JASON: I've added gameOver as a condition which will exit the game and can be
-	// triggered in various circumstances (e.g. bankruptcy, victory, user quitting).
 	protected static boolean gameOver = false;
 
 	protected static ArrayList<Player> players = new ArrayList<Player>();
@@ -31,7 +39,6 @@ public class Game {
 		// false
 		
 		GameActions.showAllPlayerStats();
-		// JEFF: Added beginnings of show rules code.
 		GameActions.showRules();
 		do {
 

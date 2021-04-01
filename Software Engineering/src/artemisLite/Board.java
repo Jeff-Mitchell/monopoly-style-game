@@ -1,12 +1,13 @@
-/**
- * 
- */
 package artemisLite;
 
 import java.util.ArrayList;
 
 /**
- * @author stu_m
+ * @author Stuart McCann
+ * @author Jason McKillen
+ * @author Mark Davidson
+ * @author Jeff Mitchell
+ * @see Square.java, Element.java
  *
  */
 public class Board {
@@ -16,10 +17,9 @@ public class Board {
 	protected static final int SPACE_LAUNCH_SYSTEMS_RENT = 100; 
 	protected static final int ORION_RENT = 150; 
 	protected static final int LANDING_EQUIPMENT_RENT = 200; 
+	
 	/**
-	 * Returns an arraylist populated with the elements for the board
-	 * 
-	 * @return
+	 * @return Returns an ArrayList populated with the elements for the board
 	 */
 	public static ArrayList<Square> createBoard() {
 		ArrayList<Square> board = new ArrayList<>(NUM_SQUARES);

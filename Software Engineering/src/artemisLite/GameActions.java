@@ -1,17 +1,16 @@
-/**
- * 
- */
 package artemisLite;
 
-import java.util.ArrayList;
 import java.util.Random;
 import java.util.Scanner;
 
 /**
- * @author Stuart McCann, Jason McKillen TODO: Write game rules TODO: JavaDoc
- *         methods and variables TODO: Add the buy development class (separated
- *         into major and minor developments) TODO: Implement the game winning
- *         conditions into the code
+ * @author Stuart McCann
+ * @author Jason McKillen
+ * @author Mark Davidson
+ * @author Jeff Mitchell
+ * @see Game.java
+ * 
+ * TODO: Implement the game winning conditions into the code
  *
  */
 public class GameActions {
@@ -19,7 +18,8 @@ public class GameActions {
 	static Random random = new Random();
 
 	/**
-	 * Prompts the user to enter the number of players
+	 * Prompts the user to enter the number of players and adds the players to the players ArrayList.
+	 * Number of players must be between 2 and 4.
 	 */
 	public static void setNumberOfPlayers() {
 
@@ -30,10 +30,9 @@ public class GameActions {
 		// Checks if the number of players is invalid and prompts the user to enter a
 		// valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out
-					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
-			// Stuart: added if statement for escape function to call quit game method
+			// Quits the game when 0 is entered.
 			if (numberOfPlayers == 0) {
 				quitGame();
 			}
@@ -55,8 +54,8 @@ public class GameActions {
 	}
 
 	/**
-	 * 
-	 * @return
+	 * Simulates the throwing of two six sided dice. Minimum value is 2, maximum is 12.
+	 * @return  An <code>integer</code> value representing <em>two thrown six-sided</em> dice
 	 */
 	public static int rollDice(Player player) {
 
@@ -94,7 +93,7 @@ public class GameActions {
 	}
 
 	/**
-	 * 
+	 * Displays the attributes of each player in the game
 	 */
 	public static void showAllPlayerStats() {
 		System.out.println("Would you like to see the attributes of all players? (Y/N)");
@@ -109,7 +108,7 @@ public class GameActions {
 	}
 
 	/**
-	 * 
+	 * Displays the rules of the game to the players.
 	 */
 	public static void showRules() {
 		System.out.println("Would you like to read the rules of the game? (Y/N)");
@@ -166,18 +165,13 @@ public class GameActions {
 	}
 
 	/**
-	 * 
-	 * @param player
+	 * Updates the player's position and calls the correct method depending on the square they have arrived at.
+	 * @param The player who is actively taking a turn
 	 */
 	public static void landOnSquare(Player player) {
 
 		int squareNumber = player.getPosition();
 		Square square = Game.board.get(squareNumber);
-
-		// JASON: This appears to be unused but I don't know what the craic is with it.
-		// Should it be kept?
-
-		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
 			passGo(player);
@@ -204,24 +198,24 @@ public class GameActions {
 	}
 
 	/**
-	 * 
-	 * @param player
-	 * @param element
+	 * Displays the options which the player has available to them upon landing on an element.
+	 * @param player The player who is actively taking a turn
+	 * @param element The element which the player has landed on.
 	 */
 	public static void checkElement(Player player, Element element) {
 
 		System.out.println("You have landed on " + element.getElementName());
-		System.out.println("This is part of the " + element.getElementType() + " system");
+		System.out.println("This is part of the " + element.getElementType() + " system.");
 		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 
 			GameActions.drawLine();
 			System.out.println("|You have landed on " + element.getElementName());
-			System.out.println("|This is part of the " + element.getElementType() + " system");
+			System.out.println("|This is part of the " + element.getElementType() + " system.");
 			GameActions.drawLine();
 			if (element.getOwner() == null) {
 
 				System.out.println("No one owns this Element yet. This element costs " + element.getRent()
-						+ "- would you like to buy it?");
+						+ "- Would you like to buy it?");
 				boolean wantsToBuy = getUserInput();
 				if (wantsToBuy == true) {
 					// buy element method
@@ -242,9 +236,9 @@ public class GameActions {
 				if (element.getLevel() == 1) {
 					System.out.println(
 							"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
-					String wantsMinorUpgrade = scanner.next();
-					if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
-						buyMinorDevelopennt(player, element);
+					boolean wantsMinorUpgrade = getUserInput();
+					if (wantsMinorUpgrade == true) {
+						buyMinorDevelopment(player, element);
 						element.setLevel(2);
 					} else {
 						// offer to the rest of players
@@ -256,7 +250,7 @@ public class GameActions {
 							"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
 					String wantsMinorUpgrade = scanner.next();
 					if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
-						buyMajorDevelopennt(player, element);
+						buyMajorDevelopment(player, element);
 						element.setLevel(3);
 					} else {
 						// offer to the rest of players
@@ -281,8 +275,8 @@ public class GameActions {
 	}
 
 	/**
-	 * 
-	 * @param player
+	 * Alerts the player that they have completed a loop of the board and increases their balance by 200.
+	 * @param player The player actively taking a turn.
 	 */
 	public static void passGo(Player player) {
 
@@ -295,44 +289,49 @@ public class GameActions {
 	}
 
 	/**
-	 * 
-	 * @param player
+	 * Prints a random message to the screen which also increases or decreases the player's budget by 250
+	 * @param player The player actively taking a turn.
 	 */
 	public static void chanceSquare(Player player) {
-		System.out.println("You have received a NASA Marshall's update!");
+		System.out.println("Incoming transmission: You have received a NASA Marshall's update!");
 		int randomNum = random.nextInt(6);
 
 		switch (randomNum) {
-		// Stuart : need to add messages and player.setbalance +- amount
 		case 0:
-			System.out.println("Message " + randomNum);
+			System.out.println("Your lead engineer is ill – You must pay 250 to hire a replacement!");
+			player.setBalance(player.getBalance() - 250);
 			break;
 		case 1:
-			System.out.println("Message " + randomNum);
+			System.out.println("You’ve received a donation from a mystery billionaire of 250!");
+			player.setBalance(player.getBalance() + 250);
 			break;
 		case 2:
-			System.out.println("Message " + randomNum);
+			System.out.println("Foreign actors have hacked your network! Pay 250 to repair");
+			player.setBalance(player.getBalance() - 250);
 			break;
 		case 3:
-			System.out.println("Message " + randomNum);
+			System.out.println("Russia have made a breakthrough, the President has increased your funding by 250 to keep up!");
+			player.setBalance(player.getBalance() + 250);
 			break;
 		case 4:
-			System.out.println("Message " + randomNum);
+			System.out.println("The President has reduced your project funding by 250 to fund his golf trips. ");
+			player.setBalance(player.getBalance() - 250);
 			break;
 		case 5:
-			System.out.println("Message " + randomNum);
+			System.out.println("You have won second place in a beauty pageant! Your prize is 250.");
+			player.setBalance(player.getBalance() + 250);
 			break;
 		default:
-			;
+			break;
 
 		}
 
 	}
 
 	/**
-	 * 
-	 * @param player
-	 * @param element
+	 * Buys a specified element for a given player
+	 * @param player - The player to whom the element will be assigned
+	 * @param element - The element to be bought
 	 */
 	public static void buyElement(Player player, Element element) {
 
@@ -343,50 +342,54 @@ public class GameActions {
 			element.setOwner(player);
 			element.setLevel(1);
 			player.setBalance(-element.getRent());
-			System.out.println("Congratulations! You now own " + element.getElementName() + " part of the "
+			System.out.println("Congratulations! You now own " + element.getElementName() + ", part of the "
 					+ element.getElementType() + " system");
-			System.out.println("Your balance in now: " + player.getBalance());
+			System.out.println("Your balance is now: " + player.getBalance());
 		} else if (wantsToBuy == false) {
 			// offer to group method
 			offerElementToAll(player, element);
 		}
 
 	}
+	/**
+	 * Upgrades a specified element for a given player through building a minor development
+	 * @param player - The player who will buy the minor upgrade
+	 * @param element - The element to be upgraded
+	 */
+	public static void buyMinorDevelopment(Player player, Element element) {
 
-	public static void buyMinorDevelopennt(Player player, Element element) {
-
-		System.out.println("This minor updade costs " + element.getMinorUpgrade());
+		System.out.println("This minor upgrade costs " + element.getMinorUpgrade());
 		System.out.println("Are you sure you want to buy the minor upgrade? Y/N");
-		String wantsToUpgrade = scanner.next();
-		if (wantsToUpgrade.equalsIgnoreCase("Y")) {
+		boolean wantsToUpgrade = getUserInput();
+		if (wantsToUpgrade == true) {
 			element.setOwner(player);
 			element.setLevel(2);
 			player.setBalance(-element.getMinorUpgrade());
-			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + " part of the "
+			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
 					+ element.getElementType() + " system");
-			System.out.println("Your balance in now: " + player.getBalance());
-		} else if (wantsToUpgrade.equalsIgnoreCase("N")) {
+			System.out.println("Your balance is now: " + player.getBalance());
+		} else if (wantsToUpgrade == false) {
 			// add group method offer when added
 		}
 
 	}
 
-	public static void buyMajorDevelopennt(Player player, Element element) {
+	public static void buyMajorDevelopment(Player player, Element element) {
 
-		System.out.println("This major updade costs " + element.getMinorUpgrade());
+		System.out.println("This major upgrade costs " + element.getMinorUpgrade());
 		System.out.println("Are you sure you want to buy the major upgrade? Y/N");
-		String wantsToUpgrade = scanner.next();
-		if (wantsToUpgrade.equalsIgnoreCase("Y")) {
+		boolean wantsToUpgrade = getUserInput();
+		if (wantsToUpgrade == true) {
 			element.setOwner(player);
 			element.setLevel(3);
 			player.setBalance(-element.getMajorUpgrade());
-			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + " part of the "
+			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
 					+ element.getElementType() + " system");
 			GameActions.drawLine();
 			System.out.println("|This square has now been fully upgraded");
 			GameActions.drawLine();
-			System.out.println("Your balance in now: " + player.getBalance());
-		} else if (wantsToUpgrade.equalsIgnoreCase("N")) {
+			System.out.println("Your balance is now: " + player.getBalance());
+		} else if (wantsToUpgrade == false) {
 			// add group method offer when added
 		}
 
@@ -394,8 +397,8 @@ public class GameActions {
 
 	/**
 	 * 
-	 * @param player
-	 * @param element
+	 * @param player The player actively taking a turn.
+	 * @param element The element to be purchased.
 	 */
 	public static void offerElementToAll(Player player, Element element) {
 		boolean elementPurchased = false;
@@ -403,8 +406,8 @@ public class GameActions {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
 				System.out.println(
 						playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
-				String wantsToBuy = scanner.next();
-				if (wantsToBuy.equalsIgnoreCase("Y")) {
+				boolean wantsToBuy = getUserInput();
+				if (wantsToBuy == true) {
 					buyElement(playerOffered, element);
 					elementPurchased = true;
 				}
@@ -415,13 +418,18 @@ public class GameActions {
 		}
 
 	}
-	
+	/**
+	 * Draws a line to the screen.
+	 */
 	public static void drawLine() {
 		System.out.println("|--------------------------------");
 	}
 
-	// Handles various user inputs and returns a boolean value
-	// TODO: Jason - Write JavaDoc
+	/**
+	 * Gets the user's input.
+	 * If input is not affirmative or negative, calls itself recursively.
+	 * @return A boolean value, true if the user enters "Y" or "Yes", false if "N" or "No" (both case insensitive).
+	 */
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
 		if (userInput.equalsIgnoreCase("Y") || userInput.equalsIgnoreCase("Yes")) {
@@ -435,7 +443,9 @@ public class GameActions {
 		return false;
 	}
 
-	// Checks if the winning conditions have been met
+	/**
+	 * Checks if the winning conditions have been met and ends the game if true.
+	 */
 	public static void checkWinConditions() {
 		boolean allElementsDeveloped = false;
 		// TODO: Loop through all the squares in the board and see if they have been
@@ -445,7 +455,9 @@ public class GameActions {
 		}
 	}
 
-	// Prints the "Win Game" message and ends the game.
+	/**
+	 * Prints the "Win Game" message and ends the game
+	 */
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
 		System.out.println("Congratulations team, you have successfully launched!");
