@@ -289,46 +289,6 @@ public class GameActions {
 	}
 
 	/**
-	 * Prints a random message to the screen which also increases or decreases the player's budget by 250
-	 * @param player The player actively taking a turn.
-	 */
-	public static void chanceSquare(Player player) {
-		System.out.println("Incoming transmission: You have received a NASA Marshall's update!");
-		int randomNum = random.nextInt(6);
-
-		switch (randomNum) {
-		case 0:
-			System.out.println("Your lead engineer is ill – You must pay 250 to hire a replacement!");
-			player.setBalance(player.getBalance() - 250);
-			break;
-		case 1:
-			System.out.println("You’ve received a donation from a mystery billionaire of 250!");
-			player.setBalance(player.getBalance() + 250);
-			break;
-		case 2:
-			System.out.println("Foreign actors have hacked your network! Pay 250 to repair");
-			player.setBalance(player.getBalance() - 250);
-			break;
-		case 3:
-			System.out.println("Russia have made a breakthrough, the President has increased your funding by 250 to keep up!");
-			player.setBalance(player.getBalance() + 250);
-			break;
-		case 4:
-			System.out.println("The President has reduced your project funding by 250 to fund his golf trips. ");
-			player.setBalance(player.getBalance() - 250);
-			break;
-		case 5:
-			System.out.println("You have won second place in a beauty pageant! Your prize is 250.");
-			player.setBalance(player.getBalance() + 250);
-			break;
-		default:
-			break;
-
-		}
-
-	}
-
-	/**
 	 * Buys a specified element for a given player
 	 * @param player - The player to whom the element will be assigned
 	 * @param element - The element to be bought
