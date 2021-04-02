@@ -84,10 +84,12 @@ public class GameActions {
 		Random random = new Random();
 
 		// Adds one to the dice value in order to avoid returning a value of 0.
-		int diceValue = random.nextInt(12) + 1;
+		int diceValue = random.nextInt(11) + 2;
 
 		// Tells the user what value they rolled.
-		System.out.println("You rolled a " + diceValue);
+		GameActions.drawLine();
+		System.out.println("|You rolled a " + diceValue);
+		GameActions.drawLine();
 
 		return diceValue;
 	}
@@ -115,6 +117,21 @@ public class GameActions {
 		boolean wantsToSeeRules = getUserInput();
 
 		if (wantsToSeeRules == true) {
+
+			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
+					+ "• If one player quits or bankrupt game ends \r\n"
+					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
+					+ "• Players take turns to roll the dice and move the num squares that they rolle\r\n"
+					+ "• 2 6 sided dice \r\n"
+					+ "• When a player lands on a square they have option to buy the square – if they do not it is offered to the other players \r\n"
+					+ "• If already owned the player must pay rent unless the square owner agrees not to charge\r\n"
+					+ "• A player must own the whole system to develop a square \r\n"
+					+ "• Rent increases the more developed a square is \r\n"
+					+ "• If one player goes bankrupt or quits all players quit\r\n"
+					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
+					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
+					+ "" + "\n|--------------------------------");
+
 			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\nï¿½ 2-4 players \r\n"
 					+ "ï¿½ If one player quits or bankrupt game ends \r\n"
 					+ "ï¿½ Players start at ï¿½Goï¿½ ï¿½ Kennedy Space Centre \r\n"
@@ -160,13 +177,17 @@ public class GameActions {
 
 		// JASON: This appears to be unused but I don't know what the craic is with it.
 		// Should it be kept?
+
 		SquareType squareType = square.getSquareType();
 
 		if (player.isPassGo()) {
 			passGo(player);
 		}
 
-		System.out.println("You have landed on square " + player.getPosition());
+		GameActions.drawLine();
+		System.out.println("|You have landed on square " + player.getPosition());
+		GameActions.drawLine();
+
 		if (square instanceof Element) {
 			Element element = (Element) square;
 			checkElement(player, element);
@@ -175,6 +196,8 @@ public class GameActions {
 			Chance.chanceOutcome(player);
 		} else {
 			// go method
+			System.out.println("You're in " + SquareType.KENNEDY_SPACE_CENTRE);
+			System.out.println("Relax, stock up on supplies and prepare for the journey ahead!");
 		}
 
 		// display options method
@@ -190,21 +213,52 @@ public class GameActions {
 
 		System.out.println("You have landed on " + element.getElementName());
 		System.out.println("This is part of the " + element.getElementType() + " system");
-		if (element.getOwner() == null) {
+		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
+
+			GameActions.drawLine();
+
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
 					+ "- would you like to buy it?");
 			boolean wantsToBuy = getUserInput();
 			if (wantsToBuy == true) {
 				// buy element method
 				buyElement(player, element);
+				element.setLevel(1);
 			} else {
 				// offer to the rest of players
 				offerElementToAll(player, element);
 			}
 
+		} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
+			System.out.println("No one owns this element but your balance is " + player.getBalance());
+			System.out.println("This element costs " + element.getRent());
+			System.out.println("You are not able to buy this element without going bankrupt");
 		} else if (element.getOwner() == player) {
 			System.out.println("You already own this element - would you like to buy a development?");
-			// buy development method
+			boolean wantsToDevelop = getUserInput();
+			if (wantsToDevelop) {
+				if (element.getLevel() == 1) {
+					System.out.println(
+							"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+					boolean wantsMinorUpgrade = getUserInput();
+					if (wantsMinorUpgrade) {
+						buyMinorDevelopennt(player, element);
+						element.setLevel(2);
+					}
+
+				} else if (element.getLevel() == 2) {
+					System.out.println(
+							"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+					boolean wantsMinorUpgrade = getUserInput();
+					if (wantsMinorUpgrade) {
+						buyMajorDevelopennt(player, element);
+						element.setLevel(3);
+					}
+				} else if (element.getLevel() == 3) {
+					System.out.println("This square has already been fully upgraded! moving on..");
+				}
+			}
+
 		} else {
 			System.out.println(element.getOwner().getPlayerName() + " owns this square");
 			System.out.println("The rent for this square is: " + element.getRent());
@@ -215,7 +269,6 @@ public class GameActions {
 			// if does player.setBalance(-element.getRent())
 			// if doesnt output thanks and move on
 		}
-
 	}
 
 	/**
@@ -279,12 +332,53 @@ public class GameActions {
 		boolean wantsToBuy = getUserInput();
 		if (wantsToBuy == true) {
 			element.setOwner(player);
+			element.setLevel(1);
 			player.setBalance(-element.getRent());
 			System.out.println("Congratulations! You now own " + element.getElementName() + " part of the "
 					+ element.getElementType() + " system");
 			System.out.println("Your balance in now: " + player.getBalance());
 		} else if (wantsToBuy == false) {
 			// offer to group method
+			offerElementToAll(player, element);
+		}
+
+	}
+
+	public static void buyMinorDevelopennt(Player player, Element element) {
+
+		System.out.println("This minor updade costs " + element.getMinorUpgrade());
+		System.out.println("Are you sure you want to buy the minor upgrade? Y/N");
+		String wantsToUpgrade = scanner.next();
+		if (wantsToUpgrade.equalsIgnoreCase("Y")) {
+			element.setOwner(player);
+			element.setLevel(2);
+			player.setBalance(-element.getMinorUpgrade());
+			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + " part of the "
+					+ element.getElementType() + " system");
+			System.out.println("Your balance in now: " + player.getBalance());
+		} else if (wantsToUpgrade.equalsIgnoreCase("N")) {
+			// add group method offer when added
+		}
+
+	}
+
+	public static void buyMajorDevelopennt(Player player, Element element) {
+
+		System.out.println("This major updade costs " + element.getMinorUpgrade());
+		System.out.println("Are you sure you want to buy the major upgrade? Y/N");
+		String wantsToUpgrade = scanner.next();
+		if (wantsToUpgrade.equalsIgnoreCase("Y")) {
+			element.setOwner(player);
+			element.setLevel(3);
+			player.setBalance(-element.getMajorUpgrade());
+			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + " part of the "
+					+ element.getElementType() + " system");
+			GameActions.drawLine();
+			System.out.println("|This square has now been fully upgraded");
+			GameActions.drawLine();
+			System.out.println("Your balance in now: " + player.getBalance());
+		} else if (wantsToUpgrade.equalsIgnoreCase("N")) {
+			// add group method offer when added
 		}
 
 	}
@@ -311,6 +405,10 @@ public class GameActions {
 			System.out.println("No one decided to buy " + element.getElementName() + ".");
 		}
 
+	}
+
+	public static void drawLine() {
+		System.out.println("|--------------------------------");
 	}
 
 	// Handles various user inputs and returns a boolean value
