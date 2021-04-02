@@ -1,5 +1,10 @@
 package artemisLite;
 
+<<<<<<< HEAD
+=======
+import java.util.ArrayList;
+
+>>>>>>> origin/mark2
 import java.util.Random;
 import java.util.Scanner;
 
