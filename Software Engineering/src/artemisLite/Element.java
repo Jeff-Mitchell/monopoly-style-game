@@ -1,10 +1,13 @@
-/**
- * 
- */
 package artemisLite;
 
 /**
- * @author stu_m
+ * @author Stuart McCann
+ * @author Jason McKillen
+ * @author Mark Davidson
+ * @author Jeff Mitchell
+ * @see ElementName.java, ElementType.java, Square.java
+ * 
+ * TODO: JavaDoc code.
  *
  */
 public class Element extends Square {
