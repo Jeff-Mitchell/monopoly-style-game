@@ -209,6 +209,7 @@ public class GameActions {
 		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 
 			GameActions.drawLine();
+<<<<<<< HEAD
 			System.out.println("|You have landed on " + element.getElementName());
 			System.out.println("|This is part of the " + element.getElementType() + " system.");
 			GameActions.drawLine();
@@ -225,53 +226,72 @@ public class GameActions {
 					// offer to the rest of players
 					offerElementToAll(player, element);
 				}
+=======
+>>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
 
-			} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
-				System.out.println("No one owns this element but your balance is " + player.getBalance());
-				System.out.println("This element costs " + element.getRent());
-				System.out.println("You are not able to buy this element without going bankrupt");
-			} else if (element.getOwner() == player) {
-				System.out.println("You already own this element - would you like to buy a development?");
+			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
+					+ "- would you like to buy it?");
+			boolean wantsToBuy = getUserInput();
+			if (wantsToBuy == true) {
+				// buy element method
+				buyElement(player, element);
+				element.setLevel(1);
+			} else {
+				// offer to the rest of players
+				offerElementToAll(player, element);
+			}
 
+		} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
+			System.out.println("No one owns this element but your balance is " + player.getBalance());
+			System.out.println("This element costs " + element.getRent());
+			System.out.println("You are not able to buy this element without going bankrupt");
+		} else if (element.getOwner() == player) {
+			System.out.println("You already own this element - would you like to buy a development?");
+			boolean wantsToDevelop = getUserInput();
+			if (wantsToDevelop) {
 				if (element.getLevel() == 1) {
 					System.out.println(
 							"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
 					boolean wantsMinorUpgrade = getUserInput();
+<<<<<<< HEAD
 					if (wantsMinorUpgrade == true) {
 						buyMinorDevelopment(player, element);
+=======
+					if (wantsMinorUpgrade) {
+						buyMinorDevelopennt(player, element);
+>>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
 						element.setLevel(2);
-					} else {
-						// offer to the rest of players
-						offerElementToAll(player, element);
 					}
 
 				} else if (element.getLevel() == 2) {
 					System.out.println(
 							"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+<<<<<<< HEAD
 					String wantsMinorUpgrade = scanner.next();
 					if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
 						buyMajorDevelopment(player, element);
+=======
+					boolean wantsMinorUpgrade = getUserInput();
+					if (wantsMinorUpgrade) {
+						buyMajorDevelopennt(player, element);
+>>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
 						element.setLevel(3);
-					} else {
-						// offer to the rest of players
-						offerElementToAll(player, element);
 					}
 				} else if (element.getLevel() == 3) {
 					System.out.println("This square has already been fully upgraded! moving on..");
 				}
-
-			} else {
-				System.out.println(element.getOwner().getPlayerName() + " owns this square");
-				System.out.println("The rent for this square is: " + element.getRent());
-				// Calls the charge rent method
-				player.chargeRent(element.getRent());
-				System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
-				// ask player if he wishes to charge rent
-				// if does player.setBalance(-element.getRent())
-				// if doesnt output thanks and move on
 			}
-		}
 
+		} else {
+			System.out.println(element.getOwner().getPlayerName() + " owns this square");
+			System.out.println("The rent for this square is: " + element.getRent());
+			// Calls the charge rent method
+			player.chargeRent(element.getRent());
+			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+			// ask player if he wishes to charge rent
+			// if does player.setBalance(-element.getRent())
+			// if doesnt output thanks and move on
+		}
 	}
 
 	/**
@@ -378,9 +398,13 @@ public class GameActions {
 		}
 
 	}
+<<<<<<< HEAD
 	/**
 	 * Draws a line to the screen.
 	 */
+=======
+
+>>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
 	public static void drawLine() {
 		System.out.println("|--------------------------------");
 	}
