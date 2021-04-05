@@ -238,47 +238,45 @@ public class GameActions {
 				System.out.println("No one owns this element but your balance is " + player.getBalance());
 				System.out.println("This element costs " + element.getRent());
 				System.out.println("You are not able to buy this element without going bankrupt");
-			} else if (element.getOwner() == player) {
-				System.out.println("You already own this element - would you like to buy a development?");
-				boolean wantsToDevelop = getUserInput();
-				if (wantsToDevelop) {
-					if (element.getLevel() == 1) {
-						System.out.println(
-								"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
-						boolean wantsMinorUpgrade = getUserInput();
-						if (wantsMinorUpgrade == true) {
-							buyMinorDevelopment(player, element);
-							if (wantsMinorUpgrade) {
-								buyMinorDevelopment(player, element);
-								element.setLevel(2);
-							}
+//			} else if (element.getOwner() == player) {
+//				System.out.println("You already own this element - would you like to buy a development?");
+//				boolean wantsToDevelop = getUserInput();
+//				if (wantsToDevelop) {
+//					if (element.getLevel() == 1) {
+//						System.out.println(
+//								"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+//						boolean wantsMinorUpgrade = getUserInput();
+//						if (wantsMinorUpgrade == true) {
+//							buyMinorDevelopment(player, element);
+//							if (wantsMinorUpgrade) {
+//								buyMinorDevelopment(player, element);
+//								element.setLevel(2);
+//							}
+//
+//						} else if (element.getLevel() == 2) {
+//							System.out.println(
+//									"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+//							boolean wantsMajorUpgrade = getUserInput();
+//							if (wantsMajorUpgrade) {
+//								buyMajorDevelopment(player, element);
+//								element.setLevel(3);
+//							}
+//						} else if (element.getLevel() == 3) {
+//							System.out.println("This square has already been fully upgraded! moving on..");
+//						}
+//					}
 
-						} else if (element.getLevel() == 2) {
-							System.out.println(
-									"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
-							boolean wantsMajorUpgrade = getUserInput();
-							if (wantsMajorUpgrade) {
-								buyMajorDevelopment(player, element);
-								element.setLevel(3);
-							}
-						} else if (element.getLevel() == 3) {
-							System.out.println("This square has already been fully upgraded! moving on..");
-						}
-					}
-
-				} else {
-					System.out.println(element.getOwner().getPlayerName() + " owns this square");
-					System.out.println("The rent for this square is: " + element.getRent());
-					// Calls the charge rent method
-					player.chargeRent(element.getRent());
-					System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
-					// ask player if he wishes to charge rent
-					// if does player.setBalance(-element.getRent())
-					// if doesnt output thanks and move on
-				}
+			} else {
+				System.out.println(element.getOwner().getPlayerName() + " owns this square");
+				System.out.println("The rent for this square is: " + element.getRent());
+				// Calls the charge rent method
+				player.chargeRent(element.getRent());
+				System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+				// ask player if he wishes to charge rent
+				// if does player.setBalance(-element.getRent())
+				// if doesnt output thanks and move on
 			}
 		}
-
 	}
 
 	/**
@@ -329,44 +327,44 @@ public class GameActions {
 	 * @param player  - The player who will buy the minor upgrade
 	 * @param element - The element to be upgraded
 	 */
-	public static void buyMinorDevelopment(Player player, Element element) {
+//	public static void buyMinorDevelopment(Player player, Element element) {
+//
+//		System.out.println("This minor upgrade costs " + element.getMinorUpgrade());
+//		System.out.println("Are you sure you want to buy the minor upgrade? Y/N");
+//		boolean wantsToUpgrade = getUserInput();
+//		if (wantsToUpgrade == true) {
+//			element.setOwner(player);
+//			element.setLevel(2);
+//			player.setBalance(-element.getMinorUpgrade());
+//			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
+//					+ element.getElementType() + " system");
+//			System.out.println("Your balance is now: " + player.getBalance());
+//		} else if (wantsToUpgrade == false) {
+//			// add group method offer when added
+//		}
+//
+//	}
 
-		System.out.println("This minor upgrade costs " + element.getMinorUpgrade());
-		System.out.println("Are you sure you want to buy the minor upgrade? Y/N");
-		boolean wantsToUpgrade = getUserInput();
-		if (wantsToUpgrade == true) {
-			element.setOwner(player);
-			element.setLevel(2);
-			player.setBalance(-element.getMinorUpgrade());
-			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
-					+ element.getElementType() + " system");
-			System.out.println("Your balance is now: " + player.getBalance());
-		} else if (wantsToUpgrade == false) {
-			// add group method offer when added
-		}
-
-	}
-
-	public static void buyMajorDevelopment(Player player, Element element) {
-
-		System.out.println("This major upgrade costs " + element.getMinorUpgrade());
-		System.out.println("Are you sure you want to buy the major upgrade? Y/N");
-		boolean wantsToUpgrade = getUserInput();
-		if (wantsToUpgrade == true) {
-			element.setOwner(player);
-			element.setLevel(3);
-			player.setBalance(-element.getMajorUpgrade());
-			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
-					+ element.getElementType() + " system");
-			GameActions.drawLine();
-			System.out.println("|This square has now been fully upgraded");
-			GameActions.drawLine();
-			System.out.println("Your balance is now: " + player.getBalance());
-		} else if (wantsToUpgrade == false) {
-			// add group method offer when added
-		}
-
-	}
+//	public static void buyMajorDevelopment(Player player, Element element) {
+//
+//		System.out.println("This major upgrade costs " + element.getMinorUpgrade());
+//		System.out.println("Are you sure you want to buy the major upgrade? Y/N");
+//		boolean wantsToUpgrade = getUserInput();
+//		if (wantsToUpgrade == true) {
+//			element.setOwner(player);
+//			element.setLevel(3);
+//			player.setBalance(-element.getMajorUpgrade());
+//			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
+//					+ element.getElementType() + " system");
+//			GameActions.drawLine();
+//			System.out.println("|This square has now been fully upgraded");
+//			GameActions.drawLine();
+//			System.out.println("Your balance is now: " + player.getBalance());
+//		} else if (wantsToUpgrade == false) {
+//			// add group method offer when added
+//		}
+//
+//	}
 
 	/**
 	 * 
