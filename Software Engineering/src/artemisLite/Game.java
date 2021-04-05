@@ -31,7 +31,9 @@ public class Game {
 
 	public static void main(String[] args) {
 
-		System.out.println("Welcome to Artemis Lite");
+		GameActions.drawLine();
+		System.out.println("|Welcome to Artemis Lite");
+		GameActions.drawLine();
 
 		GameActions.setNumberOfPlayers();
 

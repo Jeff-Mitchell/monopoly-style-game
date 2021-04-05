@@ -40,27 +40,39 @@ public class Chance extends Square {
 
 		switch (randomNumber) {
 		case 1:
-			System.out.println("The President has increased your project funding by 250");
+			GameActions.drawLine();
+			System.out.println("|The President has increased your project funding by 250");
+			GameActions.drawLine();
 			player.setBalance(chanceIncrease);
 			break;
 		case 2:
-			System.out.println("Lead engineer is ill, hire a replacement, pay 250 for a replacement");
+			GameActions.drawLine();
+			System.out.println("|Lead engineer is ill, hire a replacement, pay 250 for a replacement");
+			GameActions.drawLine();
 			player.setBalance(chanceDeduct);
 			break;
 		case 3:
-			System.out.println("Foreign actors have hacked the network. Pay 250 to repair!");
+			GameActions.drawLine();
+			System.out.println("|Foreign actors have hacked the network. Pay 250 to repair!");
+			GameActions.drawLine();
 			player.setBalance(chanceDeduct);
 			break;
 		case 4:
-			System.out.println("You have received a donation of 250 from a mystery billionaire!");
+			GameActions.drawLine();
+			System.out.println("|You have received a donation of 250 from a mystery billionaire!");
+			GameActions.drawLine();
 			player.setBalance(chanceIncrease);
 			break;
 		case 5:
-			System.out.println("The president has decreased funding by 250");
+			GameActions.drawLine();
+			System.out.println("|The president has decreased funding by 250");
+			GameActions.drawLine();
 			player.setBalance(chanceDeduct);
 			break;
 		case 6:
-			System.out.println("Russia have made a breakthrough! Funding increased by 250");
+			GameActions.drawLine();
+			System.out.println("|Russia have made a breakthrough! Funding increased by 250");
+			GameActions.drawLine();
 			player.setBalance(chanceIncrease);
 		}
 	}

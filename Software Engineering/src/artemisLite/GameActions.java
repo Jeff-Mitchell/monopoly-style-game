@@ -24,14 +24,17 @@ public class GameActions {
 	public static void setNumberOfPlayers() {
 
 		// Requires the user to enter an integer value of the number of players
-		System.out.println("Please enter the number of players between 2 and 4 (inclusive).");
+		GameActions.drawLine();
+		System.out.println("|Please enter the number of players between 2 and 4 (inclusive).");
+		GameActions.drawLine();
 		int numberOfPlayers = scanner.nextInt();
 
 		// Checks if the number of players is invalid and prompts the user to enter a
 		// valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out
-					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			GameActions.drawLine();
+			System.out.println("|Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			GameActions.drawLine();
 			numberOfPlayers = scanner.nextInt();
 			// Quits the game when 0 is entered.
 			if (numberOfPlayers == 0) {
@@ -42,7 +45,9 @@ public class GameActions {
 
 		// Loops through each player and prompts them to enter their name.
 		for (int loop = 0; loop < numberOfPlayers; loop++) {
-			System.out.println("Please enter player " + (loop + 1) + "'s name");
+			GameActions.drawLine();
+			System.out.println("|Please enter player " + (loop + 1) + "'s name");
+			GameActions.drawLine();
 
 			String playerName = scanner.next();
 
@@ -50,7 +55,9 @@ public class GameActions {
 			// ArrayList
 			Player player = new Player(playerName);
 			Game.players.add(player);
-			System.out.println(playerName + " added successfully.");
+			GameActions.drawLine();
+			System.out.println("| " + playerName + " added successfully.");
+			GameActions.drawLine();
 		}
 	}
 
@@ -64,14 +71,18 @@ public class GameActions {
 	public static int rollDice(Player player) {
 
 		// Prompts the user to roll the dice.
-		System.out.println(player.getPlayerName() + ", are you ready to roll the dice? Y/N");
+		GameActions.drawLine();
+		System.out.println("| " + player.getPlayerName() + ", are you ready to roll the dice? Y/N");
+		GameActions.drawLine();
 		boolean readyToRoll = getUserInput();
 
 		// JASON: Is there any way to make game over automatically quit the game? the
 		// way I'm currently
 		// doing it makes the method finish it's current loop before quitting
 		if (readyToRoll == false) {
-			System.out.println("Would you like to quit the game? Y/N");
+			GameActions.drawLine();
+			System.out.println("|Would you like to quit the game? Y/N");
+			GameActions.drawLine();
 			if (getUserInput() == true) {
 				quitGame();
 			}
@@ -79,7 +90,9 @@ public class GameActions {
 
 		// Ensures that the user is ready to roll the dice.
 		while (!readyToRoll) {
-			System.out.println("Enter Y when you are ready to roll the dice.");
+			GameActions.drawLine();
+			System.out.println("|Enter Y when you are ready to roll the dice.");
+			GameActions.drawLine();
 			readyToRoll = getUserInput();
 		}
 
@@ -100,7 +113,9 @@ public class GameActions {
 	 * Displays the attributes of each player in the game
 	 */
 	public static void showAllPlayerStats() {
-		System.out.println("Would you like to see the attributes of all players? (Y/N)");
+		GameActions.drawLine();
+		System.out.println("|Would you like to see the attributes of all players? (Y/N)");
+		GameActions.drawLine();
 		boolean isWantingStats = getUserInput();
 
 		if (isWantingStats == true) {
@@ -115,7 +130,9 @@ public class GameActions {
 	 * Displays the rules of the game to the players.
 	 */
 	public static void showRules() {
-		System.out.println("Would you like to read the rules of the game? (Y/N)");
+		GameActions.drawLine();
+		System.out.println("|Would you like to read the rules of the game? (Y/N)");
+		GameActions.drawLine();
 		boolean wantsToSeeRules = getUserInput();
 
 		if (wantsToSeeRules == true) {
@@ -156,15 +173,21 @@ public class GameActions {
 	 */
 	public static void quitGame() {
 
-		System.out.println("Are you sure you want to quit? Enter Y OR N");
+		GameActions.drawLine();
+		System.out.println("|Are you sure you want to quit? Enter Y OR N");
+		GameActions.drawLine();
 		boolean wantsToQuit = getUserInput();
 		if (wantsToQuit == true) {
 			Game.gameOver = true;
-			System.out.println("Thank you for playing Artemis Lite");
-			System.out.println("Your final progress: ");
+			GameActions.drawLine();
+			System.out.println("|Thank you for playing Artemis Lite");
+			System.out.println("|Your final progress: ");
+			GameActions.drawLine();
 			// showGameProgress()
 		} else if (wantsToQuit == false) {
-			System.out.println("You have decided to continue your Artemis Lite mission to the Moon");
+			GameActions.drawLine();
+			System.out.println("|You have decided to continue your Artemis Lite mission to the Moon");
+			GameActions.drawLine();
 		}
 	}
 
@@ -195,8 +218,10 @@ public class GameActions {
 			Chance.chanceOutcome(player);
 		} else {
 			// go method
-			System.out.println("You're in " + SquareType.KENNEDY_SPACE_CENTRE);
-			System.out.println("Relax, stock up on supplies and prepare for the journey ahead!");
+			GameActions.drawLine();
+			System.out.println("|You're in " + SquareType.KENNEDY_SPACE_CENTRE);
+			System.out.println("|Relax, stock up on supplies and prepare for the journey ahead!");
+			GameActions.drawLine();
 		}
 
 		// display options method
@@ -212,8 +237,10 @@ public class GameActions {
 	 */
 	public static void checkElement(Player player, Element element) {
 
-		System.out.println("You have landed on " + element.getElementName());
-		System.out.println("This is part of the " + element.getElementType() + " system.");
+		GameActions.drawLine();
+		System.out.println("|You have landed on " + element.getElementName());
+		System.out.println("|This is part of the " + element.getElementType() + " system.");
+		GameActions.drawLine();
 		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 
 			GameActions.drawLine();
@@ -222,8 +249,10 @@ public class GameActions {
 			GameActions.drawLine();
 			if (element.getOwner() == null) {
 
-				System.out.println("No one owns this Element yet. This element costs " + element.getRent()
+				GameActions.drawLine();
+				System.out.println("|No one owns this Element yet. This element costs " + element.getRent()
 						+ "- Would you like to buy it?");
+				GameActions.drawLine();
 				boolean wantsToBuy = getUserInput();
 				if (wantsToBuy == true) {
 					// buy element method
@@ -235,16 +264,21 @@ public class GameActions {
 				}
 
 			} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
-				System.out.println("No one owns this element but your balance is " + player.getBalance());
-				System.out.println("This element costs " + element.getRent());
-				System.out.println("You are not able to buy this element without going bankrupt");
+				GameActions.drawLine();
+				System.out.println("|No one owns this element but your balance is " + player.getBalance());
+				System.out.println("|This element costs " + element.getRent());
+				System.out.println("|You are not able to buy this element without going bankrupt");
+				GameActions.drawLine();
 			} else if (element.getOwner() == player) {
-				System.out.println("You already own this element - would you like to buy a development?");
+				GameActions.drawLine();
+				System.out.println("|You already own this element - would you like to buy a development?");
+				GameActions.drawLine();
 				boolean wantsToDevelop = getUserInput();
 				if (wantsToDevelop) {
 					if (element.getLevel() == 1) {
-						System.out.println(
-								"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+						GameActions.drawLine();
+						System.out.println("|This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+						GameActions.drawLine();
 						boolean wantsMinorUpgrade = getUserInput();
 						if (wantsMinorUpgrade == true) {
 							buyMinorDevelopment(player, element);
@@ -254,24 +288,30 @@ public class GameActions {
 							}
 
 						} else if (element.getLevel() == 2) {
-							System.out.println(
-									"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+							System.out.println("|This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y/N");
+							GameActions.drawLine();
 							boolean wantsMajorUpgrade = getUserInput();
 							if (wantsMajorUpgrade) {
 								buyMajorDevelopment(player, element);
 								element.setLevel(3);
 							}
 						} else if (element.getLevel() == 3) {
-							System.out.println("This square has already been fully upgraded! moving on..");
+							GameActions.drawLine();
+							System.out.println("|This square has already been fully upgraded! moving on..");
+							GameActions.drawLine();
 						}
 					}
 
 				} else {
-					System.out.println(element.getOwner().getPlayerName() + " owns this square");
-					System.out.println("The rent for this square is: " + element.getRent());
+					GameActions.drawLine();
+					System.out.println("|" + element.getOwner().getPlayerName() + " owns this square");
+					System.out.println("|The rent for this square is: " + element.getRent());
+					GameActions.drawLine();
 					// Calls the charge rent method
 					player.chargeRent(element.getRent());
-					System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+					GameActions.drawLine();
+					System.out.println("|" + player.getPlayerName() + ", your balance is now " + player.getBalance());
+					GameActions.drawLine();
 					// ask player if he wishes to charge rent
 					// if does player.setBalance(-element.getRent())
 					// if doesnt output thanks and move on
@@ -289,10 +329,12 @@ public class GameActions {
 	 */
 	public static void passGo(Player player) {
 
-		System.out.println("You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
-		System.out.println("Great news! You have recieved funding of " + Go.GO_FUNDING);
+		GameActions.drawLine();
+		System.out.println("|You have passed through " + SquareType.KENNEDY_SPACE_CENTRE);
+		System.out.println("|Great news! You have recieved funding of " + Go.GO_FUNDING);
 		player.setBalance(Go.GO_FUNDING);
-		System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+		System.out.println("|" + player.getPlayerName() + ", your balance is now " + player.getBalance());
+		GameActions.drawLine();
 		player.setPassGo(false);
 
 	}
@@ -305,16 +347,20 @@ public class GameActions {
 	 */
 	public static void buyElement(Player player, Element element) {
 
-		System.out.println("This element costs " + element.getRent());
-		System.out.println("Are you sure you want to buy the element? Y/N");
+		GameActions.drawLine();
+		System.out.println("|This element costs " + element.getRent());
+		System.out.println("|Are you sure you want to buy the element? Y/N");
+		GameActions.drawLine();
 		boolean wantsToBuy = getUserInput();
 		if (wantsToBuy == true) {
 			element.setOwner(player);
 			element.setLevel(1);
 			player.setBalance(-element.getRent());
-			System.out.println("Congratulations! You now own " + element.getElementName() + ", part of the "
+			GameActions.drawLine();
+			System.out.println("|Congratulations! You now own " + element.getElementName() + ", part of the "
 					+ element.getElementType() + " system");
-			System.out.println("Your balance is now: " + player.getBalance());
+			System.out.println("|Your balance is now: " + player.getBalance());
+			GameActions.drawLine();
 		} else if (wantsToBuy == false) {
 			// offer to group method
 			offerElementToAll(player, element);
@@ -331,16 +377,20 @@ public class GameActions {
 	 */
 	public static void buyMinorDevelopment(Player player, Element element) {
 
-		System.out.println("This minor upgrade costs " + element.getMinorUpgrade());
-		System.out.println("Are you sure you want to buy the minor upgrade? Y/N");
+		GameActions.drawLine();
+		System.out.println("|This minor upgrade costs " + element.getMinorUpgrade());
+		System.out.println("|Are you sure you want to buy the minor upgrade? Y/N");
+		GameActions.drawLine();
 		boolean wantsToUpgrade = getUserInput();
 		if (wantsToUpgrade == true) {
 			element.setOwner(player);
 			element.setLevel(2);
 			player.setBalance(-element.getMinorUpgrade());
-			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
+			GameActions.drawLine();
+			System.out.println("|Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
 					+ element.getElementType() + " system");
-			System.out.println("Your balance is now: " + player.getBalance());
+			System.out.println("|Your balance is now: " + player.getBalance());
+			GameActions.drawLine();
 		} else if (wantsToUpgrade == false) {
 			// add group method offer when added
 		}
@@ -349,19 +399,23 @@ public class GameActions {
 
 	public static void buyMajorDevelopment(Player player, Element element) {
 
-		System.out.println("This major upgrade costs " + element.getMinorUpgrade());
-		System.out.println("Are you sure you want to buy the major upgrade? Y/N");
+		GameActions.drawLine();
+		System.out.println("|This major upgrade costs " + element.getMinorUpgrade());
+		System.out.println("|Are you sure you want to buy the major upgrade? Y/N");
+		GameActions.drawLine();
 		boolean wantsToUpgrade = getUserInput();
 		if (wantsToUpgrade == true) {
 			element.setOwner(player);
 			element.setLevel(3);
 			player.setBalance(-element.getMajorUpgrade());
-			System.out.println("Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
+			GameActions.drawLine();
+			System.out.println("|Congratulations! You have just upgraded " + element.getElementName() + ", part of the "
 					+ element.getElementType() + " system");
 			GameActions.drawLine();
 			System.out.println("|This square has now been fully upgraded");
 			GameActions.drawLine();
-			System.out.println("Your balance is now: " + player.getBalance());
+			System.out.println("|Your balance is now: " + player.getBalance());
+			GameActions.drawLine();
 		} else if (wantsToUpgrade == false) {
 			// add group method offer when added
 		}
@@ -377,8 +431,9 @@ public class GameActions {
 		boolean elementPurchased = false;
 		for (Player playerOffered : Game.players) {
 			if (!player.getPlayerName().equalsIgnoreCase(playerOffered.getPlayerName()) && !elementPurchased) {
-				System.out.println(
-						playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
+				GameActions.drawLine();
+				System.out.println("|" + playerOffered.getPlayerName() + ", would you like to buy " + element.getElementName() + "?");
+				GameActions.drawLine();
 				boolean wantsToBuy = getUserInput();
 				if (wantsToBuy == true) {
 					buyElement(playerOffered, element);
@@ -387,7 +442,9 @@ public class GameActions {
 			}
 		}
 		if (!elementPurchased) {
-			System.out.println("No one decided to buy " + element.getElementName() + ".");
+			GameActions.drawLine();
+			System.out.println("|No one decided to buy " + element.getElementName() + ".");
+			GameActions.drawLine();
 		}
 
 	}
@@ -414,7 +471,9 @@ public class GameActions {
 		} else if (userInput.equalsIgnoreCase("N") || userInput.equalsIgnoreCase("No")) {
 			return false;
 		} else {
-			System.out.println("Unrecognised input.");
+			GameActions.drawLine();
+			System.out.println("|Unrecognised input.");
+			GameActions.drawLine();
 			getUserInput();
 		}
 		return false;
@@ -437,11 +496,15 @@ public class GameActions {
 	 */
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
-		System.out.println("Congratulations team, you have successfully launched!");
-		System.out.println("Incoming transmission:");
+		GameActions.drawLine();
+		System.out.println("|Congratulations team, you have successfully launched!");
+		System.out.println("|Incoming transmission:");
+		GameActions.drawLine();
 		// TODO: Start thread here
 
-		System.out.println("In 2021, " + Game.players.size() + " intrepid explorers took the next step for mankind.");
+		GameActions.drawLine();
+		System.out.println("|In 2021, " + Game.players.size() + " intrepid explorers took the next step for mankind.");
+		GameActions.drawLine();
 		// TODO: Add extra details here about who owned which elements as per project
 		// outline doc
 		quitGame();
