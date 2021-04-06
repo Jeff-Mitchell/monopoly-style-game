@@ -28,7 +28,8 @@ public class Element extends Square {
 	 * Default constructor for the element class
 	 */
 	public Element() {
-
+		
+		
 	}
 
 	/**
