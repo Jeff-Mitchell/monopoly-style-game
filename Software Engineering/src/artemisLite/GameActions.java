@@ -9,8 +9,6 @@ import java.util.Scanner;
  * @author Mark Davidson
  * @author Jeff Mitchell
  * @see Game.java
- * 
- *      TODO: Implement the game winning conditions into the code
  *
  */
 public class GameActions {
@@ -27,22 +25,9 @@ public class GameActions {
 		GameActions.drawLine();
 		System.out.println("|Please enter the number of players between 2 and 4 (inclusive).");
 		GameActions.drawLine();
-		int numberOfPlayers = scanner.nextInt();
+		int numberOfPlayers = getNumberOfPlayers();
 
-		// Checks if the number of players is invalid and prompts the user to enter a
-		// valid number.
-		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			GameActions.drawLine();
-			System.out
-					.println("|Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
-			GameActions.drawLine();
-			numberOfPlayers = scanner.nextInt();
-			// Quits the game when 0 is entered.
-			if (numberOfPlayers == 0) {
-				quitGame();
-			}
-
-		}
+		
 
 		// Loops through each player and prompts them to enter their name.
 		for (int loop = 0; loop < numberOfPlayers; loop++) {
@@ -188,9 +173,10 @@ public class GameActions {
 			Game.gameOver = true;
 			GameActions.drawLine();
 			System.out.println("|Thank you for playing Artemis Lite");
-			System.out.println("|Your final progress: ");
+			showAllPlayerStats();
 			GameActions.drawLine();
-			// showGameProgress()
+			System.exit(0);
+
 		} else if (wantsToQuit == false) {
 			GameActions.drawLine();
 			System.out.println("|You have decided to continue your Artemis Lite mission to the Moon");
@@ -307,12 +293,15 @@ public class GameActions {
 		} else {
 			System.out.println(element.getOwner().getPlayerName() + " owns this square");
 			System.out.println("The rent for this square is: " + element.getRent());
-			// Calls the charge rent method
-			player.chargeRent(element.getRent());
-			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
-			// ask player if he wishes to charge rent
-			// if does player.setBalance(-element.getRent())
-			// if doesnt output thanks and move on
+			System.out.println(element.getOwner().getPlayerName() + ", do you wish to charge the rent owed?");
+			if(getUserInput() == true) {
+				// Calls the charge rent method
+				player.chargeRent(element.getRent());
+				System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+			} else if(getUserInput() == false) {
+				System.out.println("You are very generous. No rent will be collected.");
+			}
+			
 		}
 	}
 
@@ -554,7 +543,7 @@ public class GameActions {
 			switch (option) {
 			case 1:
 				drawLine();
-				showGameProgress();
+				showAllPlayerStats();
 				drawLine();
 				break;
 			case 2:
@@ -572,16 +561,34 @@ public class GameActions {
 			}
 		} while (option != 3);
 	}
-
-	/**
-	 * Shows details of all elements to screen
-	 */
-	public static void showGameProgress() {
-		for (Square square : Game.board) {
-			if (square instanceof Element) {
-				((Element) square).showElementDetails();
-			}
+	
+	public static int getNumberOfPlayers() {
+		String playersString = scanner.next();
+		int numberOfPlayers = 0;
+		
+		switch (playersString) {
+		case "0":
+		case "2":
+		case "3":
+		case "4":
+			numberOfPlayers = Integer.parseInt(playersString);
+			break;
+		default:
 		}
-	}
+		// Checks if the number of players is invalid and prompts the user to enter a
+				// valid number.
+				while (numberOfPlayers < 2 || numberOfPlayers > 4) {
+					GameActions.drawLine();
+					System.out
+							.println("|Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+					GameActions.drawLine();
+					getNumberOfPlayers();
+					// Quits the game when 0 is entered.
+					if (numberOfPlayers == 0) {
+						quitGame();
+					}
 
+				}
+		return numberOfPlayers;
+	}
 }
