@@ -59,6 +59,8 @@ public class Game {
 				// Shows the player information about their new position and their available
 				// choices
 				GameActions.landOnSquare(player);
+				
+				GameActions.showMenu(player);
 
 				// Checks if the conditions necessary to win the game have been met
 				GameActions.checkWinConditions();
