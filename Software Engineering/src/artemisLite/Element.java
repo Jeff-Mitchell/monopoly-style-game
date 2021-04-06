@@ -161,5 +161,22 @@ public class Element extends Square {
 	public void setLevel(int level) {
 		this.level = level;
 	}
+	
+	/**
+	 * Shows details of all elements to screen
+	 */
+	public void showElementDetails() {
+		GameActions.drawLine();
+		System.out.println(this.elementName+": "+this.elementType);
+		if(this.owner!=null) {
+		System.out.println("Owned by: "+this.owner.getPlayerName());
+		}else {
+			System.out.println("Not currently owned");
+		}
+		System.out.println("Minor upgrades: "+this.minorUpgrade);
+		System.out.println("Major upgrades: "+this.majorUpgrade);
+		System.out.println();
+		
+	}
 
 }

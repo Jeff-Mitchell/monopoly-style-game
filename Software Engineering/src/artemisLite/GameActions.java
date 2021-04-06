@@ -10,7 +10,7 @@ import java.util.Scanner;
  * @author Jeff Mitchell
  * @see Game.java
  * 
- * TODO: Implement the game winning conditions into the code
+ *      TODO: Implement the game winning conditions into the code
  *
  */
 public class GameActions {
@@ -18,8 +18,8 @@ public class GameActions {
 	static Random random = new Random();
 
 	/**
-	 * Prompts the user to enter the number of players and adds the players to the players ArrayList.
-	 * Number of players must be between 2 and 4.
+	 * Prompts the user to enter the number of players and adds the players to the
+	 * players ArrayList. Number of players must be between 2 and 4.
 	 */
 	public static void setNumberOfPlayers() {
 
@@ -30,7 +30,8 @@ public class GameActions {
 		// Checks if the number of players is invalid and prompts the user to enter a
 		// valid number.
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-			System.out.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			System.out
+					.println("Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
 			numberOfPlayers = scanner.nextInt();
 			// Quits the game when 0 is entered.
 			if (numberOfPlayers == 0) {
@@ -44,7 +45,7 @@ public class GameActions {
 			System.out.println("Please enter player " + (loop + 1) + "'s name");
 
 			String playerName = scanner.next();
-
+			playerName = checkForDuplicateName(playerName);
 			// Creates a new instance of the Player class and adds it to the Players
 			// ArrayList
 			Player player = new Player(playerName);
@@ -54,8 +55,31 @@ public class GameActions {
 	}
 
 	/**
-	 * Simulates the throwing of two six sided dice. Minimum value is 2, maximum is 12.
-	 * @return  An <code>integer</code> value representing <em>two thrown six-sided</em> dice
+	 * Checks for a duplicate player name and asks for a new user input if a
+	 * duplicate is identified
+	 * 
+	 * @param playerName
+	 * @return
+	 */
+	public static String checkForDuplicateName(String playerName) {
+
+		for (Player player : Game.players) {
+			if (player.getPlayerName().equalsIgnoreCase(playerName)) {
+				System.out.println("Another player has used this name! - please select another");
+				playerName = scanner.next();
+				playerName = checkForDuplicateName(playerName);
+			}
+		}
+
+		return playerName;
+	}
+
+	/**
+	 * Simulates the throwing of two six sided dice. Minimum value is 2, maximum is
+	 * 12.
+	 * 
+	 * @return An <code>integer</code> value representing <em>two thrown
+	 *         six-sided</em> dice
 	 */
 	public static int rollDice(Player player) {
 
@@ -165,7 +189,9 @@ public class GameActions {
 	}
 
 	/**
-	 * Updates the player's position and calls the correct method depending on the square they have arrived at.
+	 * Updates the player's position and calls the correct method depending on the
+	 * square they have arrived at.
+	 * 
 	 * @param The player who is actively taking a turn
 	 */
 	public static void landOnSquare(Player player) {
@@ -198,8 +224,10 @@ public class GameActions {
 	}
 
 	/**
-	 * Displays the options which the player has available to them upon landing on an element.
-	 * @param player The player who is actively taking a turn
+	 * Displays the options which the player has available to them upon landing on
+	 * an element.
+	 * 
+	 * @param player  The player who is actively taking a turn
 	 * @param element The element which the player has landed on.
 	 */
 	public static void checkElement(Player player, Element element) {
@@ -209,28 +237,9 @@ public class GameActions {
 		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 
 			GameActions.drawLine();
-<<<<<<< HEAD
-			System.out.println("|You have landed on " + element.getElementName());
-			System.out.println("|This is part of the " + element.getElementType() + " system.");
-			GameActions.drawLine();
-			if (element.getOwner() == null) {
-
-				System.out.println("No one owns this Element yet. This element costs " + element.getRent()
-						+ "- Would you like to buy it?");
-				boolean wantsToBuy = getUserInput();
-				if (wantsToBuy == true) {
-					// buy element method
-					buyElement(player, element);
-					element.setLevel(1);
-				} else {
-					// offer to the rest of players
-					offerElementToAll(player, element);
-				}
-=======
->>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
 
 			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
-					+ "- would you like to buy it?");
+					+ "- Would you like to buy it?");
 			boolean wantsToBuy = getUserInput();
 			if (wantsToBuy == true) {
 				// buy element method
@@ -240,62 +249,67 @@ public class GameActions {
 				// offer to the rest of players
 				offerElementToAll(player, element);
 			}
-
 		} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
 			System.out.println("No one owns this element but your balance is " + player.getBalance());
 			System.out.println("This element costs " + element.getRent());
 			System.out.println("You are not able to buy this element without going bankrupt");
 		} else if (element.getOwner() == player) {
-			System.out.println("You already own this element - would you like to buy a development?");
-			boolean wantsToDevelop = getUserInput();
-			if (wantsToDevelop) {
-				if (element.getLevel() == 1) {
-					System.out.println(
-							"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
-					boolean wantsMinorUpgrade = getUserInput();
-<<<<<<< HEAD
-					if (wantsMinorUpgrade == true) {
-						buyMinorDevelopment(player, element);
-=======
-					if (wantsMinorUpgrade) {
-						buyMinorDevelopennt(player, element);
->>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
-						element.setLevel(2);
-					}
+			boolean ownsall = checkOwnsAllSystem(player, element);
+			if (ownsall) {
+				System.out.println("You already own this element - would you like to buy a development?");
+				boolean wantsToDevelop = getUserInput();
+				if (wantsToDevelop) {
+					if (element.getLevel() == 1) {
+						System.out.println(
+								"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+						boolean wantsMinorUpgrade = getUserInput();
 
-				} else if (element.getLevel() == 2) {
-					System.out.println(
-							"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
-<<<<<<< HEAD
-					String wantsMinorUpgrade = scanner.next();
-					if (wantsMinorUpgrade.equalsIgnoreCase("Y")) {
-						buyMajorDevelopment(player, element);
-=======
-					boolean wantsMinorUpgrade = getUserInput();
-					if (wantsMinorUpgrade) {
-						buyMajorDevelopennt(player, element);
->>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
-						element.setLevel(3);
+						if (wantsMinorUpgrade == true) {
+							buyMinorDevelopment(player, element);
+
+							if (wantsMinorUpgrade) {
+
+								buyMinorDevelopment(player, element);
+
+								element.setLevel(2);
+							}
+
+						} else if (element.getLevel() == 2) {
+							System.out.println(
+									"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+
+							boolean wantsMajorUpgrade = getUserInput();
+							if (wantsMinorUpgrade) {
+
+								buyMajorDevelopment(player, element);
+								element.setLevel(3);
+							}
+						} else if (element.getLevel() == 3) {
+							System.out.println("This square has already been fully upgraded! moving on..");
+						}
 					}
-				} else if (element.getLevel() == 3) {
-					System.out.println("This square has already been fully upgraded! moving on..");
 				}
+			}else {
+				System.out.println("You own this element but you need to own the whole system to develop!");
 			}
-
-		} else {
-			System.out.println(element.getOwner().getPlayerName() + " owns this square");
-			System.out.println("The rent for this square is: " + element.getRent());
-			// Calls the charge rent method
-			player.chargeRent(element.getRent());
-			System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
-			// ask player if he wishes to charge rent
-			// if does player.setBalance(-element.getRent())
-			// if doesnt output thanks and move on
+			} else {
+				System.out.println(element.getOwner().getPlayerName() + " owns this square");
+				System.out.println("The rent for this square is: " + element.getRent());
+				// Calls the charge rent method
+				player.chargeRent(element.getRent());
+				System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
+				// ask player if he wishes to charge rent
+				// if does player.setBalance(-element.getRent())
+				// if doesnt output thanks and move on
+			}
 		}
-	}
+
+	
 
 	/**
-	 * Alerts the player that they have completed a loop of the board and increases their balance by 200.
+	 * Alerts the player that they have completed a loop of the board and increases
+	 * their balance by 200.
+	 * 
 	 * @param player The player actively taking a turn.
 	 */
 	public static void passGo(Player player) {
@@ -310,7 +324,8 @@ public class GameActions {
 
 	/**
 	 * Buys a specified element for a given player
-	 * @param player - The player to whom the element will be assigned
+	 * 
+	 * @param player  - The player to whom the element will be assigned
 	 * @param element - The element to be bought
 	 */
 	public static void buyElement(Player player, Element element) {
@@ -331,9 +346,12 @@ public class GameActions {
 		}
 
 	}
+
 	/**
-	 * Upgrades a specified element for a given player through building a minor development
-	 * @param player - The player who will buy the minor upgrade
+	 * Upgrades a specified element for a given player through building a minor
+	 * development
+	 * 
+	 * @param player  - The player who will buy the minor upgrade
 	 * @param element - The element to be upgraded
 	 */
 	public static void buyMinorDevelopment(Player player, Element element) {
@@ -377,7 +395,7 @@ public class GameActions {
 
 	/**
 	 * 
-	 * @param player The player actively taking a turn.
+	 * @param player  The player actively taking a turn.
 	 * @param element The element to be purchased.
 	 */
 	public static void offerElementToAll(Player player, Element element) {
@@ -398,21 +416,20 @@ public class GameActions {
 		}
 
 	}
-<<<<<<< HEAD
+
 	/**
 	 * Draws a line to the screen.
 	 */
-=======
-
->>>>>>> ed6fc7d483a67f178a0d49e40e6753d363879bb9
 	public static void drawLine() {
 		System.out.println("|--------------------------------");
 	}
 
 	/**
-	 * Gets the user's input.
-	 * If input is not affirmative or negative, calls itself recursively.
-	 * @return A boolean value, true if the user enters "Y" or "Yes", false if "N" or "No" (both case insensitive).
+	 * Gets the user's input. If input is not affirmative or negative, calls itself
+	 * recursively.
+	 * 
+	 * @return A boolean value, true if the user enters "Y" or "Yes", false if "N"
+	 *         or "No" (both case insensitive).
 	 */
 	public static boolean getUserInput() {
 		String userInput = scanner.next();
@@ -452,6 +469,84 @@ public class GameActions {
 		// TODO: Add extra details here about who owned which elements as per project
 		// outline doc
 		quitGame();
+	}
+
+	/**
+	 * Checks if a player owns all of a system
+	 * 
+	 * @param player
+	 * @param element
+	 * @return
+	 */
+	public static boolean checkOwnsAllSystem(Player player, Element element) {
+		boolean ownsAll = false;
+		int elementCount = 0;
+		int elementsOwned = 0;
+
+		for (Square square : Game.board) {
+			if (square instanceof Element) {
+				if (((Element) square).getElementType() == element.getElementType()) {
+					elementCount++;
+				}
+				if (((Element) square).getOwner() == player
+						&& ((Element) square).getElementType() == element.getElementType()) {
+					elementsOwned++;
+				}
+			}
+		}
+
+		if (elementsOwned == elementCount) {
+			ownsAll = true;
+		}
+
+		return ownsAll;
+
+	}
+	
+	
+	/**
+	 * Displays menu of actions to user 
+	 * @param player
+	 */
+	public static void showMenu(Player player) {
+		int option; 
+		System.out.println(player.getPlayerName()+" select your option");
+		do {
+		System.out.println("1. Show game progress");
+		System.out.println("2. Check balance");
+		System.out.println("3. End turn");
+		System.out.println("4. Quit");
+		option = scanner.nextInt(); 
+		switch(option) {
+		case 1:
+			drawLine();
+			showGameProgress();
+			drawLine();
+			break; 
+		case 2: 
+			System.out.println("Your balance is: "+player.getBalance());
+			break; 
+		case 3: 
+			//do nothing as loop ends and next player turn
+			break; 
+		case 4: 
+			quitGame();
+			break; 
+		default: ; 
+		
+		}
+		}while(option != 3); 
+	}
+	
+	/**
+	 * Shows details of all elements to screen
+	 */
+	public static void showGameProgress() {
+		for(Square square: Game.board) {
+			if(square instanceof Element) {
+				((Element) square).showElementDetails();
+			}
+		}
 	}
 
 }
