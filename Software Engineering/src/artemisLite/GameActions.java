@@ -27,8 +27,6 @@ public class GameActions {
 		GameActions.drawLine();
 		int numberOfPlayers = getNumberOfPlayers();
 
-		
-
 		// Loops through each player and prompts them to enter their name.
 		for (int loop = 0; loop < numberOfPlayers; loop++) {
 			GameActions.drawLine();
@@ -58,7 +56,9 @@ public class GameActions {
 
 		for (Player player : Game.players) {
 			if (player.getPlayerName().equalsIgnoreCase(playerName)) {
-				System.out.println("Another player has used this name! - please select another");
+				GameActions.drawLine();
+				System.out.println("|Another player has used this name! - please select another");
+				GameActions.drawLine();
 				playerName = scanner.next();
 				playerName = checkForDuplicateName(playerName);
 			}
@@ -143,8 +143,8 @@ public class GameActions {
 
 		if (wantsToSeeRules == true) {
 
-			System.out.println("\n|--------------------------------" + "\n RULES OF THE GAME" + "\n• 2-4 players \r\n"
-					+ "• If one player quits or bankrupt game ends \r\n"
+			System.out.println("\n|-----------------------------------------" + "\n RULES OF THE GAME"
+					+ "\n• 2-4 players \r\n" + "• If one player quits or bankrupt game ends \r\n"
 					+ "• Players start at “Go” – Kennedy Space Centre \r\n"
 					+ "• Players take turns to roll the dice and move the num squares that they rolle\r\n"
 					+ "• 2 6 sided dice \r\n"
@@ -155,7 +155,7 @@ public class GameActions {
 					+ "• If one player goes bankrupt or quits all players quit\r\n"
 					+ "• When game ends show final state of play – show all developments and player funds – no need to convert properties / developments into equivalent funds \r\n"
 					+ "• If all developments are completed then it announces the path ahead for Artemis project \r\n"
-					+ "" + "\n|--------------------------------");
+					+ "" + "\n|-----------------------------------------");
 		}
 	}
 
@@ -230,14 +230,16 @@ public class GameActions {
 	 */
 	public static void checkElement(Player player, Element element) {
 
-		System.out.println("You have landed on " + element.getElementName());
-		System.out.println("This is part of the " + element.getElementType() + " system.");
+		GameActions.drawLine();
+		System.out.println("|You have landed on " + element.getElementName());
+		System.out.println("|This is part of the " + element.getElementType() + " system.");
+		GameActions.drawLine();
 		if (element.getOwner() == null && player.getBalance() > element.getRent()) {
 
 			GameActions.drawLine();
-
-			System.out.println("No one owns this Element yet. This element costs " + element.getRent()
+			System.out.println("|No one owns this Element yet. This element costs " + element.getRent()
 					+ "- Would you like to buy it?");
+			GameActions.drawLine();
 			boolean wantsToBuy = getUserInput();
 			if (wantsToBuy == true) {
 				// buy element method
@@ -248,18 +250,24 @@ public class GameActions {
 				offerElementToAll(player, element);
 			}
 		} else if (element.getOwner() == null && player.getBalance() <= element.getRent()) {
-			System.out.println("No one owns this element but your balance is " + player.getBalance());
-			System.out.println("This element costs " + element.getRent());
-			System.out.println("You are not able to buy this element without going bankrupt");
+			GameActions.drawLine();
+			System.out.println("|No one owns this element but your balance is " + player.getBalance());
+			System.out.println("|This element costs " + element.getRent());
+			System.out.println("|You are not able to buy this element without going bankrupt");
+			GameActions.drawLine();
 		} else if (element.getOwner() == player) {
 			boolean ownsall = checkOwnsAllSystem(player, element);
 			if (ownsall) {
-				System.out.println("You already own this element - would you like to buy a development?");
+				GameActions.drawLine();
+				System.out.println("|You already own this element - would you like to buy a development?");
+				GameActions.drawLine();
 				boolean wantsToDevelop = getUserInput();
 				if (wantsToDevelop) {
 					if (element.getLevel() == 1) {
+						GameActions.drawLine();
 						System.out.println(
-								"This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y?N");
+								"|This square is currently at level 1 (basic), would you like to upgrade to level 2 (Intermediate?) Y/N");
+						GameActions.drawLine();
 						boolean wantsMinorUpgrade = getUserInput();
 
 						if (wantsMinorUpgrade == true) {
@@ -273,8 +281,10 @@ public class GameActions {
 							}
 
 						} else if (element.getLevel() == 2) {
+							GameActions.drawLine();
 							System.out.println(
-									"This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y?N");
+									"|This square is currently at level 2 (intermediate), would you like to upgrade to level 3 (advanced?) Y/N");
+							GameActions.drawLine();
 
 							boolean wantsMajorUpgrade = getUserInput();
 							if (wantsMajorUpgrade) {
@@ -283,25 +293,35 @@ public class GameActions {
 								element.setLevel(3);
 							}
 						} else if (element.getLevel() == 3) {
-							System.out.println("This square has already been fully upgraded! moving on..");
+							GameActions.drawLine();
+							System.out.println("|This square has already been fully upgraded! moving on..");
+							GameActions.drawLine();
 						}
 					}
 				}
 			} else {
-				System.out.println("You own this element but you need to own the whole system to develop!");
+				GameActions.drawLine();
+				System.out.println("|You own this element but you need to own the whole system to develop!");
+				GameActions.drawLine();
 			}
 		} else {
-			System.out.println(element.getOwner().getPlayerName() + " owns this square");
-			System.out.println("The rent for this square is: " + element.getRent());
-			System.out.println(element.getOwner().getPlayerName() + ", do you wish to charge the rent owed?");
-			if(getUserInput() == true) {
+			GameActions.drawLine();
+			System.out.println("|" + element.getOwner().getPlayerName() + " owns this square");
+			System.out.println("|The rent for this square is: " + element.getRent());
+			System.out.println("|" + element.getOwner().getPlayerName() + ", do you wish to charge the rent owed?");
+			GameActions.drawLine();
+			if (getUserInput() == true) {
 				// Calls the charge rent method
 				player.chargeRent(element.getRent());
-				System.out.println(player.getPlayerName() + ", your balance is now " + player.getBalance());
-			} else if(getUserInput() == false) {
-				System.out.println("You are very generous. No rent will be collected.");
+				GameActions.drawLine();
+				System.out.println("|" + player.getPlayerName() + ", your balance is now " + player.getBalance());
+				GameActions.drawLine();
+			} else if (getUserInput() == false) {
+				GameActions.drawLine();
+				System.out.println("|You are very generous. No rent will be collected.");
+				GameActions.drawLine();
 			}
-			
+
 		}
 	}
 
@@ -420,7 +440,7 @@ public class GameActions {
 	 * Draws a line to the screen.
 	 */
 	public static void drawLine() {
-		System.out.println("|--------------------------------");
+		System.out.println("|-----------------------------------------");
 	}
 
 	/**
@@ -538,8 +558,7 @@ public class GameActions {
 			System.out.println("3. End turn");
 			System.out.println("4. Quit");
 			option = scanner.nextInt();
-			
-			
+
 			switch (option) {
 			case 1:
 				drawLine();
@@ -561,11 +580,11 @@ public class GameActions {
 			}
 		} while (option != 3);
 	}
-	
+
 	public static int getNumberOfPlayers() {
 		String playersString = scanner.next();
 		int numberOfPlayers = 0;
-		
+
 		switch (playersString) {
 		case "0":
 		case "2":
@@ -576,19 +595,19 @@ public class GameActions {
 		default:
 		}
 		// Checks if the number of players is invalid and prompts the user to enter a
-				// valid number.
-				while (numberOfPlayers < 2 || numberOfPlayers > 4) {
-					GameActions.drawLine();
-					System.out
-							.println("|Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
-					GameActions.drawLine();
-					getNumberOfPlayers();
-					// Quits the game when 0 is entered.
-					if (numberOfPlayers == 0) {
-						quitGame();
-					}
+		// valid number.
+		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
+			GameActions.drawLine();
+			System.out
+					.println("|Invalid number of players. Please enter a number between 2 and 4, or press 0 to leave.");
+			GameActions.drawLine();
+			getNumberOfPlayers();
+			// Quits the game when 0 is entered.
+			if (numberOfPlayers == 0) {
+				quitGame();
+			}
 
-				}
+		}
 		return numberOfPlayers;
 	}
 }

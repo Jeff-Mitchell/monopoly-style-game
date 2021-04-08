@@ -14,7 +14,7 @@ import java.util.Scanner;
  * @author Mark Davidson
  * @author Jeff Mitchell
  * 
- * TODO: JavaDoc methods and variables
+ *         TODO: JavaDoc methods and variables
  *
  */
 public class Game {
@@ -40,12 +40,10 @@ public class Game {
 		// Stuart: game in do while loop with condition gameOver = true
 		// any methods that cause game to end i.e bankrupt / quit will set gameOver =
 		// false
-		
+
 		GameActions.showAllPlayerStats();
 		GameActions.showRules();
 		do {
-
-			
 
 			// Stuart: For loop through an arrayList of players?
 			for (Player player : players) {
@@ -59,14 +57,14 @@ public class Game {
 				// Shows the player information about their new position and their available
 				// choices
 				GameActions.landOnSquare(player);
-				
+
 				GameActions.showMenu(player);
 
 				// Checks if the conditions necessary to win the game have been met
 				GameActions.checkWinConditions();
 			}
 
-		}while (!gameOver); 
+		} while (!gameOver);
 
 		// game now over
 

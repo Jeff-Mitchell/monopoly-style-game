@@ -22,7 +22,13 @@ class ElementTest {
 
 	int levelValid;
 	int levelInvalid;
+	
+	int minorUpgradeValid;
+	int minorUpgradeInvalid;
 
+	int majorUpgradeValid;
+	int majorUpgradeInvalid;
+	
 	boolean minorDevelopmentValid, minorDevelopmentInvalid, majorDevelopmentValid, majorDevelopmentInvalid;
 
 	Element element;
@@ -38,6 +44,9 @@ class ElementTest {
 
 		levelValid = 2;
 		levelInvalid = 4;
+		
+		minorUpgradeValid = 1000;
+		majorUpgradeValid = 1500;
 
 		minorDevelopmentValid = true;
 		minorDevelopmentInvalid = false;
@@ -56,11 +65,13 @@ class ElementTest {
 
 	@Test
 	void testElementConstWithArgs() {
-		Element element = new Element(squareNumberValid, ElementName.BOOSTERS, ElementType.ORION, rentValid);
+		Element element = new Element(squareNumberValid, ElementName.BOOSTERS, ElementType.ORION, rentValid, minorUpgradeValid, majorUpgradeValid);
 		assertEquals(squareNumberValid, element.getSquareNumber());
 		assertEquals("BOOSTERS", element.getElementName().toString());
 		assertEquals("ORION", element.getElementType().toString());
 		assertEquals(rentValid, element.getRent());
+		assertEquals(minorUpgradeValid, element.getMinorUpgrade());
+		assertEquals(majorUpgradeValid, element.getMajorUpgrade());
 	}
 
 	@Test

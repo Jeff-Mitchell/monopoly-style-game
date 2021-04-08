@@ -7,7 +7,7 @@ package artemisLite;
  * @author Jeff Mitchell
  * @see ElementName.java, ElementType.java, Square.java
  * 
- * TODO: JavaDoc code.
+ *      TODO: JavaDoc code.
  *
  */
 public class Element extends Square {
@@ -28,8 +28,7 @@ public class Element extends Square {
 	 * Default constructor for the element class
 	 */
 	public Element() {
-		
-		
+
 	}
 
 	/**
@@ -40,11 +39,14 @@ public class Element extends Square {
 	 * @param elementType
 	 * @param rent
 	 */
-	public Element(int squareNumber, ElementName elementName, ElementType elementType, int rent) {
+	public Element(int squareNumber, ElementName elementName, ElementType elementType, int rent, int minorUpgrade,
+			int majorUpgrade) {
 		super(SquareType.SYSTEM, squareNumber);
 		this.elementName = elementName;
 		this.elementType = elementType;
 		this.rent = rent;
+		this.minorUpgrade = minorUpgrade;
+		this.majorUpgrade = majorUpgrade;
 	}
 
 	/**
@@ -162,22 +164,22 @@ public class Element extends Square {
 	public void setLevel(int level) {
 		this.level = level;
 	}
-	
+
 	/**
 	 * Shows details of all elements to screen
 	 */
 	public void showElementDetails() {
 		GameActions.drawLine();
-		System.out.println(this.elementName+": "+this.elementType);
-		if(this.owner!=null) {
-		System.out.println("Owned by: "+this.owner.getPlayerName());
-		}else {
-			System.out.println("Not currently owned");
+		System.out.println("|" + this.elementName + ": " + this.elementType);
+		if (this.owner != null) {
+			System.out.println("|Owned by: " + this.owner.getPlayerName());
+		} else {
+			System.out.println("|Not currently owned");
 		}
-		System.out.println("Minor upgrades: "+this.minorUpgrade);
-		System.out.println("Major upgrades: "+this.majorUpgrade);
-		System.out.println();
-		
+		System.out.println("|Minor upgrades: " + this.minorUpgrade);
+		System.out.println("|Major upgrades: " + this.majorUpgrade);
+		GameActions.drawLine();
+
 	}
 
 }

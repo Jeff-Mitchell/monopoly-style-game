@@ -11,5 +11,4 @@ public enum SquareType {
 	GO, CHANCE, SYSTEM, KENNEDY_SPACE_CENTRE;
 }
 
-
 //md test

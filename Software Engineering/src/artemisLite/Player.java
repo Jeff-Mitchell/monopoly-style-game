@@ -94,7 +94,7 @@ public class Player {
 	public void setBalance(int balance) {
 
 		this.balance += balance;
-		
+
 		if (this.balance <= 0) {
 			this.setBankrupt(true);
 		}
