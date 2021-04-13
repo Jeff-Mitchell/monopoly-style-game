@@ -74,7 +74,10 @@ public class Chance extends Square {
 			System.out.println("|Russia have made a breakthrough! Funding increased by 250");
 			GameActions.drawLine();
 			player.setBalance(chanceIncrease);
+			break; 
+		default:; 
 		}
+		System.out.println("Your balance is now: "+player.getBalance());
 	}
 
 }

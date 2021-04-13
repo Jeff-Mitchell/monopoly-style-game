@@ -13,7 +13,8 @@ import java.util.Scanner;
  */
 public class GameActions {
 	protected static Scanner scanner = new Scanner(System.in);
-	static Random random = new Random();
+	static Random random = new Random(); 
+	protected static final int WIN_GAME_SLEEP = 2000; 
 
 	/**
 	 * Prompts the user to enter the number of players and adds the players to the
@@ -469,11 +470,23 @@ public class GameActions {
 	 * Checks if the winning conditions have been met and ends the game if true.
 	 */
 	public static void checkWinConditions() {
-		boolean allElementsDeveloped = false;
+		
+		int elementCount = 0; 
+		int fullyDevelopedCount = 0; 
 		// TODO: Loop through all the squares in the board and see if they have been
 		// developed.
-		if (allElementsDeveloped == true) {
-			winGame();
+		for(Square square : Game.board) {
+			if(square instanceof Element) {
+				elementCount++; 
+				if(((Element)square).isFullyUpgraded()) {
+					fullyDevelopedCount++; 
+				}
+			}
+		}
+		
+		if (fullyDevelopedCount==elementCount) {
+			Game.WIN_GAME = true; 
+			Game.gameOver = true; 
 		}
 	}
 
@@ -482,18 +495,44 @@ public class GameActions {
 	 */
 	public static void winGame() {
 		// TODO: Write a better "Win Game" message.
-		GameActions.drawLine();
+		drawLine();
 		System.out.println("|Congratulations team, you have successfully launched!");
 		System.out.println("|Incoming transmission:");
-		GameActions.drawLine();
+		drawLine();
 		// TODO: Start thread here
-
-		GameActions.drawLine();
+		drawLine();
 		System.out.println("|In 2021, " + Game.players.size() + " intrepid explorers took the next step for mankind.");
-		GameActions.drawLine();
-		// TODO: Add extra details here about who owned which elements as per project
-		// outline doc
-		quitGame();
+		drawLine();
+		try {
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println("These brave explorers had one mission - to land the first woman and the next man on the MOON");
+			drawLine();
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println("They worked as a team to change the world, building sustainable technologies such as: ");
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println(ElementType.EXPLORATION_GROUND_SYSTEMS);
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println(ElementType.LANDING_EQUIPMENT);
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println(ElementType.ORION);
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println(ElementType.SPACE_LAUNCH_SYSTEMS);
+			Thread.sleep(WIN_GAME_SLEEP); 
+			drawLine();
+			System.out.println("NASA and the world salute all involved. Congratulations to: ");
+			Thread.sleep(WIN_GAME_SLEEP);
+			for(Player player : Game.players) {
+				System.out.println(player.getPlayerName());
+				Thread.sleep(WIN_GAME_SLEEP);
+			}
+			System.out.println("You are the pinnacle of innovation and have shown that working as a team is more powerful than going alone");
+			Thread.sleep(WIN_GAME_SLEEP);
+			System.out.println("Enjoy this victory - Next stop is MARS!!!");
+			Thread.sleep(WIN_GAME_SLEEP);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -562,7 +601,7 @@ public class GameActions {
 			switch (option) {
 			case 1:
 				drawLine();
-				showAllPlayerStats();
+				showBoard();
 				drawLine();
 				break;
 			case 2:
@@ -580,7 +619,11 @@ public class GameActions {
 			}
 		} while (option != 3);
 	}
-
+	
+	/**
+	 * 
+	 * @return
+	 */
 	public static int getNumberOfPlayers() {
 		String playersString = scanner.next();
 		int numberOfPlayers = 0;
@@ -609,5 +652,15 @@ public class GameActions {
 
 		}
 		return numberOfPlayers;
+	}
+	/**
+	 * Shows all Elements on the board and their status 
+	 */
+	public static void showBoard() {
+		for(Square square: Game.board) {
+			if(square instanceof Element) {
+				((Element)square).showElementDetails();
+			}
+		}
 	}
 }

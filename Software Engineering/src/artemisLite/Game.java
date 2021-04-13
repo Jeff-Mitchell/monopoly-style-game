@@ -25,6 +25,7 @@ public class Game {
 	// private static final int NUM_SQUARES = 12;
 
 	protected static boolean gameOver = false;
+	protected static boolean WIN_GAME = true; 
 
 	protected static ArrayList<Player> players = new ArrayList<Player>();
 	protected static ArrayList<Square> board = Board.createBoard();
@@ -34,15 +35,16 @@ public class Game {
 		GameActions.drawLine();
 		System.out.println("|Welcome to Artemis Lite");
 		GameActions.drawLine();
+		
 
 		GameActions.setNumberOfPlayers();
 
 		// Stuart: game in do while loop with condition gameOver = true
 		// any methods that cause game to end i.e bankrupt / quit will set gameOver =
 		// false
-
 		GameActions.showAllPlayerStats();
 		GameActions.showRules();
+		/*
 		do {
 
 			// Stuart: For loop through an arrayList of players?
@@ -65,8 +67,13 @@ public class Game {
 			}
 
 		} while (!gameOver);
-
+		*/
+		if(WIN_GAME) {
+			GameActions.winGame();
+		}
 		// game now over
+		System.out.println("The final state of play for your Artemis Lite mission was: ");
+		GameActions.showBoard();
 
 	}
 }

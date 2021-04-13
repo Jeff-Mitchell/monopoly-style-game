@@ -11,13 +11,15 @@ package artemisLite;
  *
  */
 public class Element extends Square {
+	protected static final int FULLY_UPGRADED_LEVEL = 3; 
+	protected static final int MINOR_UPGRADE_LEVEL = 2; 
 
 	// Sets instance variables
 	private ElementName elementName;
 	private ElementType elementType;
 	private Player owner;
-	private boolean minorDevelopment;
-	private boolean majorDevelopment;
+	private boolean minorUpgraded; 
+	private boolean fullyupgraded;
 	private int rent;
 	private int minorUpgrade;
 	private int majorUpgrade;
@@ -47,6 +49,7 @@ public class Element extends Square {
 		this.rent = rent;
 		this.minorUpgrade = minorUpgrade;
 		this.majorUpgrade = majorUpgrade;
+		this.level = 1; 
 	}
 
 	/**
@@ -98,33 +101,20 @@ public class Element extends Square {
 	public void setOwner(Player owner) {
 		this.owner = owner;
 	}
+	
 
 	/**
 	 * @return the majorDevelopment
 	 */
-	public boolean isMinorDevelopment() {
-		return minorDevelopment;
-	}
-
-	/**
-	 * @param minorDevelopment the minorDevelopment to set
-	 */
-	public void setMinorDevelopment(boolean minorDevelopment) {
-		this.minorDevelopment = minorDevelopment;
-	}
-
-	/**
-	 * @return the majorDevelopment
-	 */
-	public boolean isMajorDevelopment() {
-		return majorDevelopment;
+	public boolean isFullyUpgraded() {
+		return fullyupgraded;
 	}
 
 	/**
 	 * @param majorDevelopment the majorDevelopment to set
 	 */
-	public void setMajorDevelopment(boolean majorDevelopment) {
-		this.majorDevelopment = majorDevelopment;
+	public void setFullyUpgraded(boolean fullyupgraded) {
+		this.fullyupgraded = fullyupgraded;
 	}
 
 	/**
@@ -147,6 +137,7 @@ public class Element extends Square {
 
 	public void setMajorUpgrade(int majorUpgrade) {
 		this.majorUpgrade = majorUpgrade;
+		
 	}
 
 	public int getMinorUpgrade() {
@@ -163,6 +154,25 @@ public class Element extends Square {
 
 	public void setLevel(int level) {
 		this.level = level;
+		if(this.level==FULLY_UPGRADED_LEVEL) {
+			this.setFullyUpgraded(true);
+		}else if(this.level==MINOR_UPGRADE_LEVEL) {
+			this.setMinorUpgraded(true);
+		}
+	}
+	
+	/**
+	 * @return the minorUpgraded
+	 */
+	public boolean isMinorUpgraded() {
+		return minorUpgraded;
+	}
+
+	/**
+	 * @param minorUpgraded the minorUpgraded to set
+	 */
+	public void setMinorUpgraded(boolean minorUpgraded) {
+		this.minorUpgraded = minorUpgraded;
 	}
 
 	/**
@@ -176,10 +186,12 @@ public class Element extends Square {
 		} else {
 			System.out.println("|Not currently owned");
 		}
-		System.out.println("|Minor upgrades: " + this.minorUpgrade);
-		System.out.println("|Major upgrades: " + this.majorUpgrade);
+		System.out.println("|Minor upgrades: " + this.minorUpgraded);
+		System.out.println("|Major upgrades: " + this.fullyupgraded);
 		GameActions.drawLine();
 
 	}
+
+	
 
 }
