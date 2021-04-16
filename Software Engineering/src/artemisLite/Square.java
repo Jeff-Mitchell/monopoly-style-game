@@ -5,7 +5,7 @@ package artemisLite;
  * @author Jason McKillen
  * @author Mark Davidson
  * @author Jeff Mitchell
- * @see Element.java, SquareType.java, Board.java
+ * @see Element.java, SquareType.java, Board.java, Chance.java, Go.java
  *
  */
 public class Square {
@@ -14,7 +14,7 @@ public class Square {
 	 */
 	private SquareType squareType;
 	/**
-	 * The <em>position</em of the square on the board, represented numerically.
+	 * The <em>position</em> of the square on the board, represented numerically.
 	 */
 	int squareNumber;
 

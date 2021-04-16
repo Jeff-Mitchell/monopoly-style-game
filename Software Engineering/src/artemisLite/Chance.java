@@ -6,12 +6,11 @@ package artemisLite;
 import java.util.Random;
 
 /**
- * @author stu_m
- *
- */
-/**
- * @author stu_m
- *
+ * @author Stuart McCann
+ * @author Jason McKillen
+ * @author Mark Davidson
+ * @author Jeff Mitchell
+ * @see Element.java, SquareType.java, Chance.java, Go.java
  */
 public class Chance extends Square {
 
@@ -19,17 +18,26 @@ public class Chance extends Square {
 	protected static final int chanceDeduct = -250;
 
 	/**
-	 * Default
+	 * Default constructor
 	 */
 	public Chance() {
 
 	}
-
+	/**
+	 * Constructor with arguments
+	 * 
+	 * @param squareNumber -The square's <em>position</em> within the board,
+	 *                     represented numerically.
+	 */
 	public Chance(int squareNumber) {
 		super(SquareType.CHANCE, squareNumber);
 
 	}
-
+	/**
+	 * Produces a random number and increments or decrements the player's balance depending on the outcome
+	 * 
+	 * @param player - The player actively taking a turn
+	 */
 	public static void chanceOutcome(Player player) {
 
 		Random random = new Random();
