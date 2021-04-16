@@ -4,7 +4,10 @@
 package artemisLite;
 
 /**
- * @author stu_m
+ * @author Stuart McCann
+ * @author Jason McKillen
+ * @author Mark Davidson
+ * @author Jeff Mitchell
  *
  */
 public enum ElementType {

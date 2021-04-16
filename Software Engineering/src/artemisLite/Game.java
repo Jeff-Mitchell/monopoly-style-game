@@ -5,7 +5,6 @@ package artemisLite;
 
 import java.util.ArrayList;
 
-import java.util.Scanner;
 
 /**
  * 
@@ -13,8 +12,6 @@ import java.util.Scanner;
  * @author Jason McKillen
  * @author Mark Davidson
  * @author Jeff Mitchell
- * 
- *         TODO: JavaDoc methods and variables
  *
  */
 public class Game {

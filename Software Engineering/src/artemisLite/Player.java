@@ -20,12 +20,16 @@ public class Player {
 	private boolean passGo;
 
 	/**
-	 * Default
+	 * Default constructor (no args)
 	 */
 	public Player() {
 
 	}
-
+	/**
+	 * Constructor with arguments
+	 * 
+	 * @param playerName   - The name of the player
+	 */
 	public Player(String playerName) {
 		this.playerName = playerName;
 		this.position = 0;
@@ -34,28 +38,35 @@ public class Player {
 	}
 
 	/**
-	 * @return the playerName
+	 * Gets the player's name
+	 * @return A string containing the player's name
 	 */
 	public String getPlayerName() {
 		return playerName;
 	}
 
 	/**
-	 * @param playerName the playerName to set
+	 * @param playerName, the playerName to set
 	 */
 	public void setPlayerName(String playerName) {
 		this.playerName = playerName;
 	}
 
 	/**
-	 * @return the position
+	 * Gets the squareNumber value, which represents the player's position on the
+	 * board.
+	 * 
+	 * @return Returns an <code>integer</code> representing the position of the
+	 *        player on the board
 	 */
 	public int getPosition() {
 		return position;
 	}
 
 	/**
-	 * @param position the position to set
+	 * Sets the player's position.
+	 * 
+	 * @param position, the position of the square, represented numerically.
 	 */
 	public void setPosition(int position) {
 		if (this.position + position >= Board.NUM_SQUARES) {
