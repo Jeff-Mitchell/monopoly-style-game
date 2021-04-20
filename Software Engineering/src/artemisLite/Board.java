@@ -17,8 +17,8 @@ public class Board {
 	protected static final int SPACE_LAUNCH_SYSTEMS_RENT = 100;
 	protected static final int ORION_RENT = 150;
 	protected static final int LANDING_EQUIPMENT_RENT = 200;
-	protected static final int MINOR_UPGRADE = 1000;
-	protected static final int MAJOR_UPGRADE = 1500;
+	protected static final int MINOR_UPGRADE = 500;
+	protected static final int MAJOR_UPGRADE = 1000;
 
 	/**
 	 * @return Returns an ArrayList populated with the elements for the board

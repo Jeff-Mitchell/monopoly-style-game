@@ -23,9 +23,7 @@ public class GameActions {
 	public static void setNumberOfPlayers() {
 
 		// Requires the user to enter an integer value of the number of players
-		GameActions.drawLine();
-		System.out.println("|Please enter the number of players between 2 and 4 (inclusive).");
-		GameActions.drawLine();
+				
 		int numberOfPlayers = getNumberOfPlayers();
 
 		// Loops through each player and prompts them to enter their name.
@@ -461,9 +459,10 @@ public class GameActions {
 			GameActions.drawLine();
 			System.out.println("|Unrecognised input, please try again");
 			GameActions.drawLine();
-			getUserInput();
+			boolean secondInput = getUserInput();
+			return secondInput; 
 		}
-		return false;
+		
 	}
 
 	/**
@@ -589,35 +588,36 @@ public class GameActions {
 	 * @param player
 	 */
 	public static void showMenu(Player player) {
-		int option;
+		String option;
 		System.out.println(player.getPlayerName() + " select your option");
 		do {
 			System.out.println("1. Show game progress");
 			System.out.println("2. Check balance");
 			System.out.println("3. End turn");
 			System.out.println("4. Quit");
-			option = scanner.nextInt();
+			option = scanner.next();
 
 			switch (option) {
-			case 1:
+			case "1":
 				drawLine();
 				showBoard();
 				drawLine();
 				break;
-			case 2:
+			case "2":
 				System.out.println("Your balance is: " + player.getBalance());
 				break;
-			case 3:
+			case "3":
 				// do nothing as loop ends and next player turn
 				break;
-			case 4:
+			case "4":
 				quitGame();
 				break;
 			default:
+				System.out.println("Invalid Option!");
 				;
 
 			}
-		} while (option != 3);
+		} while (!option.equalsIgnoreCase("3"));
 	}
 	
 	/**
@@ -625,20 +625,45 @@ public class GameActions {
 	 * @return
 	 */
 	public static int getNumberOfPlayers() {
-		String playersString = scanner.next();
 		int numberOfPlayers = 0;
-
+		do {
+			drawLine();
+			System.out.println("|Please enter the number of players between 2 and 4 (inclusive) or 0 to quit.");
+			GameActions.drawLine();
+			String playersString = scanner.next();
+			
 		switch (playersString) {
 		case "0":
+			quitGame();
+			break; 
 		case "2":
+			numberOfPlayers= 2; 
+			
+			break; 
 		case "3":
+			numberOfPlayers = 3; 
+			
+			break; 
 		case "4":
-			numberOfPlayers = Integer.parseInt(playersString);
-			break;
+			numberOfPlayers = 4; 
+			
+			break; 
+			//numberOfPlayers = Integer.parseInt(playersString);
+			
 		default:
+			drawLine();
+			System.out.println("Invalid input");
+			drawLine();
+			break; 
+		
+		
 		}
+		
+		}while(numberOfPlayers!=2&&numberOfPlayers!=3&& numberOfPlayers!=4); 
+		return numberOfPlayers; 
 		// Checks if the number of players is invalid and prompts the user to enter a
 		// valid number.
+		/*
 		while (numberOfPlayers < 2 || numberOfPlayers > 4) {
 			GameActions.drawLine();
 			System.out
@@ -650,8 +675,8 @@ public class GameActions {
 				quitGame();
 			}
 
-		}
-		return numberOfPlayers;
+		}*/
+		
 	}
 	/**
 	 * Shows all Elements on the board and their status 
