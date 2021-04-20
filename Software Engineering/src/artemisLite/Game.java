@@ -35,13 +35,14 @@ public class Game {
 		
 
 		GameActions.setNumberOfPlayers();
+		
 
 		// Stuart: game in do while loop with condition gameOver = true
 		// any methods that cause game to end i.e bankrupt / quit will set gameOver =
 		// false
 		GameActions.showAllPlayerStats();
 		GameActions.showRules();
-		/*
+		
 		do {
 
 			// Stuart: For loop through an arrayList of players?
@@ -54,7 +55,7 @@ public class Game {
 				player.setPosition(playerRoll);
 
 				// Shows the player information about their new position and their available
-				// choices
+				// choicesplayer
 				GameActions.landOnSquare(player);
 
 				GameActions.showMenu(player);
@@ -64,7 +65,7 @@ public class Game {
 			}
 
 		} while (!gameOver);
-		*/
+		
 		if(WIN_GAME) {
 			GameActions.winGame();
 		}

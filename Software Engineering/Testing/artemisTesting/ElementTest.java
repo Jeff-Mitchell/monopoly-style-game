@@ -29,7 +29,7 @@ class ElementTest {
 	int majorUpgradeValid;
 	int majorUpgradeInvalid;
 	
-	boolean minorDevelopmentValid, minorDevelopmentInvalid, majorDevelopmentValid, majorDevelopmentInvalid;
+	
 
 	Element element;
 
@@ -48,11 +48,7 @@ class ElementTest {
 		minorUpgradeValid = 1000;
 		majorUpgradeValid = 1500;
 
-		minorDevelopmentValid = true;
-		minorDevelopmentInvalid = false;
-
-		majorDevelopmentValid = true;
-		majorDevelopmentInvalid = false;
+		
 
 		element = new Element();
 
@@ -86,32 +82,6 @@ class ElementTest {
 		assertEquals(squareNumberInvalid, element.getSquareNumber());
 	}
 
-	@Test
-	void testGetSetMajorDevelopmentValid() {
-		element.setMajorDevelopment(majorDevelopmentValid);
-		assertEquals(majorDevelopmentValid, true);
-
-	}
-
-	@Test
-	void testGetSetMajorDevelopmentInvalid() {
-		element.setMajorDevelopment(majorDevelopmentInvalid);
-		assertEquals(majorDevelopmentInvalid, false);
-
-	}
-
-	@Test
-	void testGetSetMinorDevelopmentValid() {
-		element.setMinorDevelopment(minorDevelopmentValid);
-		assertEquals(minorDevelopmentValid, true);
-	}
-
-	@Test
-	void testGetSetMinorDevelopmentInvalid() {
-		element.setMinorDevelopment(minorDevelopmentInvalid);
-		assertEquals(minorDevelopmentInvalid, false);
-
-	}
 
 	@Test
 	void testGetSetRentValid() {
